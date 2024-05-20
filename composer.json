@@ -1,5 +1,5 @@
 {
-    "name": "webbycrown/blog-for-bagisto",
+    "name": "tamasgara04/blog-for-bagisto",
     "description": "Blog for Bagisto",
     "type": "library",
     "license": "MIT",
@@ -12,7 +12,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/webbycrown/blog-for-bagisto"
+            "url": "https://github.com/tamasgara04/blog-for-bagisto"
         }
     ],
     "require": {
