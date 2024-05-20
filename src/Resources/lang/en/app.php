@@ -1,7 +1,32 @@
 <?php
 
 return [
+    'acl' => [
+        'dashboard' => 'Dashboard',
+        'blog' => 'Blog',
+        'blogs' => 'Blogs',
+        'blogs-create' => 'Add',
+        'blogs-edit' => 'Edit',
+        'blogs-delete' => 'Delete',
+        'category' => 'Category',
+        'category-create' => 'Create',
+        'category-edit' => 'Edit',
+        'category-delete' => 'Delete',
+        'tag' => 'Tag',
+        'tag-create' => 'Create',
+        'tag-edit' => 'Edit',
+        'tag-delete' => 'Delete',
+        'comment' => 'Comment',
+        'comment-edit' => 'Edit',
+        'comment-delete' => 'Delete',
+        'setting' => 'Setting',
+        'import_export' => 'Import/Export',
+    ],
     'blog' => [
+        'select_author'                 => 'Select an author',
+        'additional_category'           => 'Additional Category',
+        'select_category'               => 'Select an category',
+        'index-title'                   => 'Blogs',
         'title'                         => 'Posts',
         'add-title'                     => 'Add Blog',
         'edit-title'                    => 'Edit Blog',
@@ -41,6 +66,7 @@ return [
     ],
 
     'category' => [
+        'parent-category'               => 'Parent Category',
         'title'                         => 'Categories',
         'add-title'                     => 'Add Blog Category',
         'edit-title'                    => 'Edit Blog Category',
@@ -124,5 +150,35 @@ return [
         'edit'                          => 'Edit',
         'delete'                        => 'Delete',
         'view'                          => 'View',
+    ],
+
+    'import_export' => [
+        'title'             => 'Blog Import/Export',
+        'import'            => 'Import',
+        'export'            => 'Export',
+        'import_file'       => 'Import File',
+        'sample_csv_file'   => 'You can upload only csv file and download sample csv file here.',
+        'import_errors'     => 'Import Errors',
+        'click_here'        => 'Click Here'
+    ],
+    
+    'settings' => [
+        'title' => 'Blog Settings',
+        'save' => 'Save Settings',
+        'post_setting' => 'Post Settings',
+        'per_page_records' => 'Per Page Records',
+        'maximum_related_posts_allowed' => 'Maximum Related Posts Allowed',
+        'show_categories_with_posts_count' => 'Show Categories With Posts Count',
+        'show_tags_with_posts_count' => 'Show Tags With Posts Count',
+        'show_author_page' => 'Show Author Page',
+        'comment_setting' => 'Comment Settings',
+        'enable_post_comment' => 'Enable Post Comment',
+        'allow_guest_comment' => 'Allow Guest Comment',
+        'maximum_nested_comment_level' => 'Allowed maximum nested comment level',
+        'default_blog_seo_setting' => 'Default Blog SEO Setting',
+        'meta_title' => 'Meta Title',
+        'meta_keywords' => 'Meta Keywords',
+        'meta_description' => 'Meta Description',
+        'click_here' => 'Click Here',
     ],
 ];
