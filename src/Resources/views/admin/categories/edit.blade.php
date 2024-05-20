@@ -309,8 +309,7 @@
                 <x-admin::accordion>
                     <x-slot:header>
                         <p class="p-2.5 text-gray-600 dark:text-gray-300 text-base font-semibold">
-                            {{-- @lang('admin::app.catalog.categories.create.settings') --}}
-                            Parent Category
+                            @lang('blog::app.category.parent-category')
                         </p>
                     </x-slot:header>
 

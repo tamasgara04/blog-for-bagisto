@@ -1,6 +1,6 @@
 <x-admin::layouts>
     <x-slot:title>
-        {{ __('Blog Import/Export') }}
+        @lang('blog::app.import-export.title')
     </x-slot:title>
 
     @pushOnce('styles')
@@ -114,7 +114,7 @@
 
         <div class="flex gap-4 justify-between items-center max-sm:flex-wrap">
             <p class="text-xl text-gray-800 dark:text-white font-bold">
-                {{ __('Blog Import/Export') }}
+                @lang('blog::app.import-export.title')
             </p>
 
             <div class="flex gap-x-2.5 items-center">
@@ -123,13 +123,13 @@
                     href="{{ route( 'admin.blog.export.download' ) }}" 
                     target="_blank" 
                     class="transparent-button hover:bg-gray-200 dark:hover:bg-gray-800 dark:text-white"
-                ><span class="icon-export text-xl text-gray-600"></span> Export </a>
+                ><span class="icon-export text-xl text-gray-600"></span> @lang('blog::app.import-export.export') </a>
 
                 <!-- Save Button -->
                 <button
                     type="submit"
                     class="primary-button"
-                ><span class="icon-import text-xl text-white"></span>Import</button>
+                ><span class="icon-import text-xl text-white"></span>@lang('blog::app.import-export.import')</button>
             </div>
 
         </div>
@@ -143,13 +143,13 @@
                 <!-- Import Section -->
                 <div class="p-4 bg-white dark:bg-gray-900 rounded box-shadow">
                     <p class="mb-4 text-base text-gray-800 dark:text-white font-semibold">
-                        {{ __( 'Import' ) }}
+                        @lang('blog::app.import-export.import')
                     </p>
 
                     <!-- Name -->
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            {{ __( 'Import File' ) }}
+                            @lang('blog::app.import-export.import-file')
                         </x-admin::form.control-group.label>
 
                         <v-field
@@ -167,7 +167,7 @@
                                 v-bind="field"
                                 :class="[errors['{{ 'imoprt_file' }}'] ? 'border border-red-600 hover:border-red-600' : '']"
                                 class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800"
-                                placeholder="{{ __( 'Import File' ) }}"
+                                placeholder="@lang('blog::app.import-export.import-file')"
                                 accept=".csv"
                             >
                         </v-field>
@@ -176,13 +176,13 @@
                             control-name="imoprt_file"
                         >
                         </x-admin::form.control-group.error>
-                        <span class="text-xs">You can upload only csv file and download sample csv file here. <a href="{{ env('APP_URL') . '/storage/blog-sample/sample.csv' }}" target="_blank" class="text-blue-600">Click Here</a></span>
+                        <span class="text-xs">@lang('blog::app.import-export.sample_csv_file') <a href="{{ env('APP_URL') . '/storage/blog-sample/sample.csv' }}" target="_blank" class="text-blue-600">@lang('blog::app.import-export.click_here')</a></span>
                     </x-admin::form.control-group>
 
                     @if( count( $errors_data ) > 0 )
                         <div class="card main-card bg-white rounded box-shadow">
                             <div class="card-header p-4 font-semibold" style="background-color: antiquewhite;">
-                                <h4 class="card-title mb-0">Import Errors</h4>
+                                <h4 class="card-title mb-0">@lang('blog::app.import-export.import_errors')</h4>
                             </div>
                             <div class="card-body p-4 mb-4 w-full" style="height: auto; overflow-y: auto; max-height: 550px;">
                                 <div class="grid grid-cols-4 gap-2 wc-grid-responsive">
