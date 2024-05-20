@@ -152,7 +152,7 @@ return [
         'view'                          => 'View',
     ],
 
-    'import_export' => [
+    'import-export' => [
         'title'             => 'Blog Import/Export',
         'import'            => 'Import',
         'export'            => 'Export',

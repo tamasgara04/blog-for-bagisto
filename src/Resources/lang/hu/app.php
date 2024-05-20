@@ -152,7 +152,7 @@ return [
         'view'                          => 'Megtekintés',
     ],
 
-    'import_export' => [
+    'import-export' => [
         'title' => 'Blog import/export',
         'import' => 'Importálás',
         'export' => 'Exportálás',
