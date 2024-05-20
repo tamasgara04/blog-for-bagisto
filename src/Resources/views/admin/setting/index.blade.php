@@ -60,7 +60,7 @@
                                 @lang('blog::app.settings.per_page_records')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="number" name="blog_post_per_page" id="blog_post_per_page" {{-- rules="required" --}} :value="old('blog_post_per_page') ?? $settings['blog_post_per_page']" label="Per Page Records" placeholder="{{ @lang('blog::app.settings.per_page_records') }}" min="1">
+                            <x-admin::form.control-group.control type="number" name="blog_post_per_page" id="blog_post_per_page" {{-- rules="required" --}} :value="old('blog_post_per_page') ?? $settings['blog_post_per_page']" label="Per Page Records" placeholder="Blog post per page" min="1">
                             </x-admin::form.control-group.control>
 
                             {{-- <x-admin::form.control-group.error control-name="blog_post_per_page"></x-admin::form.control-group.error> --}}
@@ -73,7 +73,7 @@
                                 @lang('blog::app.settings.maximum_related_posts_allowed')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="number" name="blog_post_maximum_related" id="blog_post_maximum_related" {{-- rules="required" --}} :value="old('blog_post_maximum_related') ?? $settings['blog_post_maximum_related']" label="Maximum Related Posts Allowed" placeholder="{{ @lang('blog::app.settings.maximum_related_posts_allowed') }}" min="1">
+                            <x-admin::form.control-group.control type="number" name="blog_post_maximum_related" id="blog_post_maximum_related" {{-- rules="required" --}} :value="old('blog_post_maximum_related') ?? $settings['blog_post_maximum_related']" label="Maximum Related Posts Allowed" placeholder="Max related posts allowed" min="1">
                             </x-admin::form.control-group.control>
 
                             {{-- <x-admin::form.control-group.error control-name="blog_post_maximum_related"></x-admin::form.control-group.error> --}}
@@ -192,7 +192,7 @@
                                 @lang('blog::app.settings.maximum_nested_comment_level')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="number" name="blog_post_maximum_nested_comment" id="blog_post_maximum_nested_comment" {{-- rules="required" --}} :value="old('blog_post_maximum_nested_comment') ?? $settings['blog_post_maximum_nested_comment']" label="Allowed maximum nested comment level" placeholder="{{ @lang('blog::app.settings.maximum_nested_comment_level') }}" min="2" max="4">
+                            <x-admin::form.control-group.control type="number" name="blog_post_maximum_nested_comment" id="blog_post_maximum_nested_comment" {{-- rules="required" --}} :value="old('blog_post_maximum_nested_comment') ?? $settings['blog_post_maximum_nested_comment']" label="Allowed maximum nested comment level" placeholder="Max nested comments" min="2" max="4">
                             </x-admin::form.control-group.control>
 
                             {{-- <x-admin::form.control-group.error control-name="blog_post_maximum_nested_comment"></x-admin::form.control-group.error> --}}
@@ -217,7 +217,7 @@
                                 @lang('blog::app.settings.meta_title')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="text" name="blog_seo_meta_title" id="blog_seo_meta_title" :value="old('blog_seo_meta_title') ?? $settings['blog_seo_meta_title']" label="Meta Title" placeholder="{{ @lang('blog::app.settings.meta_title') }}">
+                            <x-admin::form.control-group.control type="text" name="blog_seo_meta_title" id="blog_seo_meta_title" :value="old('blog_seo_meta_title') ?? $settings['blog_seo_meta_title']" label="Meta Title" placeholder="SEO Meta title">
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
 
@@ -227,7 +227,7 @@
                                 @lang('blog::app.settings.meta_keywords')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="text" name="blog_seo_meta_keywords" id="blog_seo_meta_keywords" :value="old('blog_seo_meta_keywords') ?? $settings['blog_seo_meta_keywords']" label="Meta Keywords" placeholder="{{ @lang('blog::app.settings.meta_keywords') }}">
+                            <x-admin::form.control-group.control type="text" name="blog_seo_meta_keywords" id="blog_seo_meta_keywords" :value="old('blog_seo_meta_keywords') ?? $settings['blog_seo_meta_keywords']" label="Meta Keywords" placeholder="Meta keywords">
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
 
@@ -237,7 +237,7 @@
                             @lang('blog::app.settings.meta_description')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="textarea" name="blog_seo_meta_description" id="blog_seo_meta_description" :value="old('blog_seo_meta_description') ?? $settings['blog_seo_meta_description']" label="Meta Description" placeholder="{{ @lang('blog::app.settings.meta_description') }}">
+                            <x-admin::form.control-group.control type="textarea" name="blog_seo_meta_description" id="blog_seo_meta_description" :value="old('blog_seo_meta_description') ?? $settings['blog_seo_meta_description']" label="Meta Description" placeholder="Meta Description">
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
 
