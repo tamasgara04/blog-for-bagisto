@@ -149,7 +149,7 @@
                     <!-- Name -->
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
-                            @lang('blog::app.import-export.import-file')
+                            @lang('blog::app.import-export.import_file')
                         </x-admin::form.control-group.label>
 
                         <v-field
