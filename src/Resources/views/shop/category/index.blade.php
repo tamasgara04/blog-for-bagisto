@@ -15,7 +15,7 @@
 <x-shop::layouts>
     {{-- Page Title --}}
     <x-slot:title>
-        {{ __('Blog Category Page') }}
+        @lang('blog::app.shop.category.page_title')
     </x-slot>
 
     @push ('styles')
@@ -38,7 +38,7 @@
                                         <h1 class="hero-main-title">{{ $category->name }}</h1>
                                         <img
                                         src="{{ '/storage/' . ( ( isset($category->image) && !empty($category->image) && !is_null($category->image) ) ? $category->image : 'placeholder-banner.jpg' ) }}"
-                                        alt="Blanditiis soluta et iste consectetur sapiente nobis ut perferendis fugiat veritatis incidunt dolore."
+                                        alt="Blog Image"
                                         class="card-img img-fluid img-thumbnail bg-fill">
                                     </div>
                                 </section>
@@ -93,7 +93,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
-                                                                    <a href="{{route('shop.article.view',[$blog->category->slug . '/' . $blog->slug])}}" class="text-uppercase btn-text-link">Read more ></a>
+                                                                    <a href="{{route('shop.article.view',[$blog->category->slug . '/' . $blog->slug])}}" class="text-uppercase btn-text-link">@lang('blog::app.shop.category.read_more')</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -108,7 +108,7 @@
 
                                         @else
 
-                                            <div class="post-not-available">No post published yet!!</div>
+                                            <div class="post-not-available">@lang('blog::app.shop.category.no_posts')</div>
 
                                         @endif
 
@@ -116,7 +116,7 @@
 
                                     <div class=" column-3 blog-sidebar">
                                         <div class="row">
-                                            <div class="col-lg-12 mb-4 categories"><h3>Categories</h3>
+                                            <div class="col-lg-12 mb-4 categories"><h3>@lang('blog::app.shop.category.categories')</h3>
                                                 <ul class="list-group">
                                                     @foreach($categories as $category)
                                                         <li><a href="{{route('shop.blog.category.index',[$category->slug])}}" class="list-group-item list-group-item-action">
@@ -129,7 +129,7 @@
                                                 </ul>
 
                                                 <div class="tags-part">
-                                                    <h3>Tags</h3> 
+                                                    <h3>@lang('blog::app.shop.category.tags')</h3> 
                                                     <div class="tag-list">
                                                         @foreach($tags as $tag)
                                                             <a href="{{route('shop.blog.tag.index',[$tag->slug])}}" role="button" class="btn btn-primary btn-lg">{{ $tag->name }} 

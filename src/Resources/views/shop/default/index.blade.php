@@ -7,7 +7,7 @@
 @section('content-wrapper')
 
     <div class="main">
-        Package Article
+        @lang('blog::app.shop.index.article')
     </div>
 
 @stop

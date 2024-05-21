@@ -1,6 +1,51 @@
 <?php
 
 return [
+    'shop' => [      
+        'seo' => [
+            'meta' => [
+                'title' => 'SEO Meta Title',
+                'description' => 'SEO Meta Description',
+                'keywords' => 'SEO Meta Keywords',
+            ],
+        ],
+        'author' => [
+            'author_page' => 'Blog Author Page',
+            'read_more' => 'Read more >',
+            'posts_by_author' => 'Posts by :author',
+            'no_posts' => 'No post published yet!!',
+            'categories' => 'Categories',
+            'tags' => 'Tags',
+        ],
+        'category' => [
+            'page_title' => 'Blog Category Page',
+            'read_more' => 'Read more >',
+            'posts_by_author' => 'Posts by :author',
+            'no_posts' => 'No post published yet!!',
+            'categories' => 'Categories',
+            'tags' => 'Tags',
+        ],     
+        'comment' => [
+            'reply' => 'Reply',
+            'cancel_reply' => 'Cancel Reply',
+            'leave_comment' => 'Leave a comment',
+            'your_name' => 'Your Name',
+            'your_email' => 'Your Email',
+            'your_comment' => 'Your Comment',
+            'comment' => 'Comment',
+        ],
+        'index' => [
+            'article' => 'Package Article',
+        ],
+        'tag' => [
+            'page_title' => 'Blog Tag Page',
+            'read_more' => 'Read more >',
+            'no_posts' => 'No post published yet!!',
+            'categories' => 'Categories',
+            'tags' => 'Tags',
+        ],               
+    ],
+
     'acl' => [
         'dashboard' => 'Dashboard',
         'blog' => 'Blog',

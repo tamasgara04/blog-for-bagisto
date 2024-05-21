@@ -1,6 +1,51 @@
 <?php
 
 return [
+    'shop' => [
+        'seo' => [
+            'meta' => [
+                'title' => 'SEO Meta Cím',
+                'description' => 'SEO Meta Leírás',
+                'keywords' => 'SEO Meta Kulcsszavak',
+            ],
+        ],
+        'author' => [
+            'author_page' => 'Blog Szerzői Oldal',
+            'read_more' => 'Olvass tovább >',
+            'posts_by_author' => 'Bejegyzések :author által',
+            'no_posts' => 'Még nincs közzétett bejegyzés!!',
+            'categories' => 'Kategóriák',
+            'tags' => 'Címkék',
+        ],
+        'category' => [
+            'page_title' => 'Blog Kategória Oldal',
+            'read_more' => 'Olvass tovább >',
+            'posts_by_author' => 'Bejegyzések :author által',
+            'no_posts' => 'Még nincs közzétett bejegyzés!!',
+            'categories' => 'Kategóriák',
+            'tags' => 'Címkék',
+        ],
+        'comment' => [
+            'reply' => 'Válasz',
+            'cancel_reply' => 'Válasz törlése',
+            'leave_comment' => 'Szólj hozzá',
+            'your_name' => 'Neved',
+            'your_email' => 'Email címed',
+            'your_comment' => 'Hozzászólásod',
+            'comment' => 'Hozzászólás',
+        ],
+        'index' => [
+            'article' => 'Cikk',
+        ],    
+        'tag' => [
+            'page_title' => 'Blog Címke Oldal',
+            'read_more' => 'Olvass tovább >',
+            'no_posts' => 'Még nincs közzétett bejegyzés!!',
+            'categories' => 'Kategóriák',
+            'tags' => 'Címkék',
+        ],                   
+    ],
+
     'acl' => [
         'dashboard' => 'Irányítópult',
         'blog' => 'Blog',
