@@ -50,7 +50,7 @@ return [
             'our_blog' => 'Naš blog',
             'read_more' => 'Pročitaj više',
             'no_posts' => 'Još nema objavljenih postova!',
-            'Categories' => 'Kategorije',
+            'categories' => 'Kategorije',
             'tags' => 'Oznake',
             'single_blog' => 'Stranica jednog bloga',
             'related_blog' => 'Povezani blog',

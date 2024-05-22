@@ -50,7 +50,7 @@ return [
             'our_blog' => 'Our Blog',
             'read_more' => 'Read More',
             'no_posts' => 'No post published yet!',
-            'Categories' => 'Categories',
+            'categories' => 'Categories',
             'tags' => 'Tags',
             'single_blog' => 'Single Blog Page',
             'related_blog' => 'Related Blog',
