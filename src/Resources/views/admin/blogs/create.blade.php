@@ -67,7 +67,7 @@
                         </x-admin::form.control-group.label>
 
                         <v-field type="text" name="name" value="{{ old('name') }}" label="{{ trans('blog::app.blog.name') }}" rules="required" v-slot="{ field }">
-                            <input type="text" name="name" id="name" v-bind="field" :class="[errors['{{ 'name' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ lang('blog::app.blog.name') }}" v-slugify-target:slug="setValues">
+                            <input type="text" name="name" id="name" v-bind="field" :class="[errors['{{ 'name' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ trans('blog::app.blog.name') }}" v-slugify-target:slug="setValues">
                         </v-field>
 
                         <x-admin::form.control-group.error control-name="name">
@@ -81,7 +81,7 @@
                         </x-admin::form.control-group.label>
 
                         <v-field type="text" name="slug" value="{{ old('slug') }}" label="{{ trans('admin::app.catalog.categories.create.slug') }}" rules="required" v-slot="{ field }">
-                            <input type="text" name="slug" id="slug" v-bind="field" :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ lang('blog::app.blog.slug') }}" v-slugify-target:slug>
+                            <input type="text" name="slug" id="slug" v-bind="field" :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ trans('blog::app.blog.slug') }}" v-slugify-target:slug>
                         </v-field>
 
                         <x-admin::form.control-group.error control-name="slug">
@@ -116,7 +116,7 @@
                                 @lang('blog::app.blog.description')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="textarea" name="description" id="description" class="description" rules="required" :value="old('description')" :label="trans('blog::app.blog.description')" :tinymce="true" placeholder="{{ lang('blog::app.blog.description') }}" :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')">
+                            <x-admin::form.control-group.control type="textarea" name="description" id="description" class="description" rules="required" :value="old('description')" :label="trans('blog::app.blog.description')" :tinymce="true" placeholder="{{ trans('blog::app.blog.description') }}" :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')">
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.error control-name="description">
