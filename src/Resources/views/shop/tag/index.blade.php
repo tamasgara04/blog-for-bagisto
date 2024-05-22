@@ -36,7 +36,6 @@ $channel = core()->getCurrentChannel();
                                     <section class="blog-hero-wrapper">
                                         <div class="blog-hero-image">
                                             <h1 class="hero-main-title">{{ $tag->name }}</h1>
-                                            <img src="{{ '/storage/placeholder-banner.jpg' }}" alt="" class="card-img img-fluid img-thumbnail bg-fill">
                                         </div>
                                     </section>
                                     <div class="flex flex-wrap grid-wrap">

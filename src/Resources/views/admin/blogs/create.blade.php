@@ -102,7 +102,7 @@
                             @lang('blog::app.blog.short_description')
                         </x-admin::form.control-group.label>
 
-                        <x-admin::form.control-group.control type="textarea" name="short_description" id="short_description" rules="required" :value="old('short_description')" :label="trans('blog::app.blog.short_description')" :placeholder="lang('blog::app.blog.short_description')">
+                        <x-admin::form.control-group.control type="textarea" name="short_description" id="short_description" rules="required" :value="old('short_description')" :label="trans('blog::app.blog.short_description')" :placeholder="trans('blog::app.blog.short_description')">
                         </x-admin::form.control-group.control>
 
                         <x-admin::form.control-group.error control-name="short_description"></x-admin::form.control-group.error>
@@ -157,7 +157,7 @@
                                 @lang('blog::app.blog.meta_title')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="text" name="meta_title" id="meta_title" rules="required" :value="old('meta_title')" :label="trans('blog::app.blog.meta_title')" :placeholder="lang('blog::app.blog.meta_title')">
+                            <x-admin::form.control-group.control type="text" name="meta_title" id="meta_title" rules="required" :value="old('meta_title')" :label="trans('blog::app.blog.meta_title')" :placeholder="trans('blog::app.blog.meta_title')">
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.error control-name="meta_title"></x-admin::form.control-group.error>

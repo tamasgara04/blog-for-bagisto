@@ -56,7 +56,7 @@
                     <x-admin::form.control-group.control
                         type="hidden"
                         name="locale"
-                        value="en"
+                        value="hu"
                     >
                     </x-admin::form.control-group.control>
 
