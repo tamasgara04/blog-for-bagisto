@@ -34,7 +34,7 @@ $channel = core()->getCurrentChannel();
                                 <div class="full-content-wrapper">
                                     <!-- <div class="col-lg-12"><h1 class="mb-3 page-title">Our Blog</h1></div> -->
                                     <section class="blog-hero-wrapper">
-                                        <div class="blog-hero-image">
+                                        <div class="blog-hero-image" style="height: 100px;">
                                             <h1 class="hero-main-title">{{ $tag->name }}</h1>
                                         </div>
                                     </section>
