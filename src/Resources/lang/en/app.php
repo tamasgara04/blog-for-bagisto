@@ -43,7 +43,21 @@ return [
             'no_posts' => 'No post published yet!!',
             'categories' => 'Categories',
             'tags' => 'Tags',
-        ],               
+        ],
+        'velocity' => [
+            'page_title' => 'Blog Page',
+            'our_blog' => 'Our Blog',
+            'read_more' => 'Read More',
+            'no_posts' => 'No post published yet!',
+            'Categories' => 'Categories',
+            'tags' => 'Tags',
+            'single_blog' => 'Single Blog Page',
+            'related_blog' => 'Related Blog',
+            'leave_comment' => 'Leave a comment',
+            'comment' => 'Comment',
+            'comment-login' => 'You must be logged in to comment. Click <a href=":login_url" target="_blank">here</a> to login.',
+            'comments_off' => 'Comments are turned off.',
+        ]            
     ],
 
     'acl' => [

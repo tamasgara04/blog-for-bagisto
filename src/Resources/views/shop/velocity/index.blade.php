@@ -15,7 +15,7 @@
 <x-shop::layouts>
     {{-- Page Title --}}
     <x-slot:title>
-        {{ __('Blog Page') }}
+    @lang('blog::app.shop.velocity.page_title')
     </x-slot>
 
     @push ('styles')
@@ -32,7 +32,7 @@
                     <div class="container-right row no-margin col-12 no-padding">
                         <div id="blog" class="container mt-5">
                             <div class="full-content-wrapper">
-                                <div class="col-lg-12"><h1 class="mb-3 page-title">Our Blog</h1></div>
+                                <div class="col-lg-12"><h1 class="mb-3 page-title">@lang('blog::app.shop.velocity.our_blog')</h1></div>
                                 <div class="flex flex-wrap grid-wrap">
 
                                     <div class="column-9">
@@ -78,7 +78,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
-                                                                    <a href="{{route('shop.article.view',[$blog->category->slug . '/' . $blog->slug])}}" class="text-uppercase btn-text-link">Read more ></a>
+                                                                    <a href="{{route('shop.article.view',[$blog->category->slug . '/' . $blog->slug])}}" class="text-uppercase btn-text-link">@lang('blog::app.shop.velocity.read_more')</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -93,7 +93,7 @@
 
                                         @else
 
-                                            <div class="post-not-available">No post published yet!!</div>
+                                            <div class="post-not-available">@lang('blog::app.shop.velocity.no_posts')</div>
 
                                         @endif
 
@@ -102,7 +102,7 @@
                                     <div class=" column-3 blog-sidebar">
                                         <div class="row">
                                             <div class="col-lg-12 mb-4 categories">
-                                                <h3>Categories</h3>
+                                                <h3>@lang('blog::app.shop.velocity.categories')</h3>
                                                 <ul class="list-group">
                                                     @foreach($categories as $category)
                                                         <li><a href="{{route('shop.blog.category.index',[$category->slug])}}" class="list-group-item list-group-item-action">
@@ -115,7 +115,7 @@
                                                 </ul>
 
                                                 <div class="tags-part">
-                                                    <h3>Tags</h3> 
+                                                    <h3>@lang('blog::app.shop.velocity.tags')</h3> 
                                                     <div class="tag-list">
                                                         @foreach($tags as $tag)
                                                             <a href="{{route('shop.blog.tag.index',[$tag->slug])}}" role="button" class="btn btn-primary btn-lg">{{ $tag->name }} 

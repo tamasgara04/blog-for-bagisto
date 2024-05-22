@@ -43,7 +43,21 @@ return [
             'no_posts' => 'Még nincs közzétett bejegyzés!!',
             'categories' => 'Kategóriák',
             'tags' => 'Címkék',
-        ],                   
+        ],
+        'velocity' => [
+            'page_title' => 'Blogoldal',
+            'our_blog' => 'Blogunk',
+            'read_more' => 'Olvass tovább',
+            'no_posts' => 'Még nincs bejegyzés közzétéve!',
+            'categories' => 'Kategóriák',
+            'tags' => 'Címkék',
+            'single_blog' => 'Egyedi blogoldal',
+            'related_blog' => 'Kapcsolódó blog',
+            'leave_comment' => 'Szólj hozzá',
+            'comment' => 'Hozzászólás',
+            'comment-login' => 'A hozzászóláshoz be kell jelentkezned. Kattints <a href=":login_url" target="_blank">ide</a> a bejelentkezéshez.',
+            'comments_off' => 'A hozzászólások ki vannak kapcsolva.',
+        ],                 
     ],
 
     'acl' => [

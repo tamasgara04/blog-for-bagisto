@@ -15,7 +15,7 @@
 <x-shop::layouts>
     {{-- Page Title --}}
     <x-slot:title>
-        {{ __('Single Blog Page') }}
+    @lang('blog::app.shop.velocity.page_title')
     </x-slot>
 
     @push ('styles')
@@ -49,7 +49,7 @@
                                             <div class="text-justify mb-3 blog-post-content">
                                                 <h3 class="page-title">{{ $blog->name }}</h3>
                                                 <div class="post-tags mb-3">
-                                                    <strong>Tags:</strong>
+                                                    <strong>@lang('blog::app.shop.velocity.tags'):</strong>
                                                     <div class="post-tag-lists">
                                                         @if( !empty($blog_tags) && count($blog_tags) > 0 )
                                                             @foreach( $blog_tags as $blog_tag )
@@ -66,7 +66,7 @@
 
                                     <sidebar class="column-3 blog-sidebar">
                                         <div class="row">
-                                            <div class="col-lg-12 mb-4 categories"><h3>Categories</h3>
+                                            <div class="col-lg-12 mb-4 categories"><h3>@lang('blog::app.shop.velocity.categories')</h3>
                                                 <ul class="list-group">
                                                     @foreach($categories as $category)
                                                         <li><a href="{{route('shop.blog.category.index',[$category->slug])}}" class="list-group-item list-group-item-action">
@@ -79,7 +79,7 @@
                                                 </ul>
 
                                                 <div class="tags-part">
-                                                    <h3>Tags</h3> 
+                                                    <h3>@lang('blog::app.shop.velocity.tags')</h3> 
                                                     <div class="tag-list">
                                                         @foreach($tags as $tag)
                                                             <a href="{{route('shop.blog.tag.index',[$tag->slug])}}" role="button" class="btn btn-primary btn-lg">{{ $tag->name }} 
@@ -98,7 +98,7 @@
                             </div>
 
                             <div id="comment-list" class="column-12 comment-part related-bolg-part">
-                                <div class="col-lg-12"><h1 class="mb-3 page-title">Related Blog</h1></div>
+                                <div class="col-lg-12"><h1 class="mb-3 page-title">@lang('blog::app.shop.velocity.related_blog')</h1></div>
                                 <div class="flex flex-wrap blog-grid-list">
 
                                     @foreach($related_blogs as $related_blog)
@@ -138,7 +138,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card-footer">
-                                                        <a href="{{route('shop.article.view',[$related_blog->category->slug . '/' . $related_blog->slug])}}" class="text-uppercase btn-text-link">Read more ></a>
+                                                        <a href="{{route('shop.article.view',[$related_blog->category->slug . '/' . $related_blog->slug])}}" class="text-uppercase btn-text-link">@lang('blog::app.shop.velocity.read_more')</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -176,7 +176,7 @@
                                                         <div class="column-12">
                                                             <div class="row justify-content-center mt-3 comment-form-holder flex flex-wrap grid-wrap">
                                                                 <div class="column-12">
-                                                                    <h3>Leave a comment</h3> 
+                                                                    <h3>@lang('blog::app.shop.velocity.leave_comment')</h3> 
                                                                     <form method="POST" action="{{route('shop.blog.comment.store')}}" class="frmComment comment-form">
                                                                         @csrf
                                                                         <input type="hidden" name="parent_id" value="0">
@@ -203,7 +203,7 @@
                                                                             <textarea name="comment" placeholder="Your Comment" required="required" rows="5" class="form-control"></textarea>
                                                                         </div>
                                                                         <div class="form-group text-right">
-                                                                            <button type="submit" class="btn btn-primary btn-lg">Comment</button>
+                                                                            <button type="submit" class="btn btn-primary btn-lg">@lang('blog::app.shop.velocity.comment')</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -214,7 +214,7 @@
 
                                                         <div class="column-12">
                                                             <div class="comment-not-allow-guest">
-                                                                You must be logged in to comment. Clik <a href="{{ URL::to('/') }}/customer/login" target="_blank"> here</a> to login.
+                                                                @lang('velocity.comment-login', ['login_url' => URL::to('/customer/login')])
                                                             </div>
                                                         </div>
 
@@ -234,7 +234,7 @@
 
                                                 </div>
                                             @else
-                                                <div class="comment-not-allow">Comments are turned off.</div>
+                                                <div class="comment-not-allow">@lang('blog::app.shop.velocity.comments_off')</div>
                                             @endif
                                         </div>
                                     </div>
