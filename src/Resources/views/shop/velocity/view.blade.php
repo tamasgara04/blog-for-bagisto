@@ -155,7 +155,7 @@
                                     <div class="row flex flex-wrap grid-wrap">
                                         <div class="column-12">
                                             @if( (int)$blog->allow_comments == 1 )
-                                                <h2>Comments ({{ $total_comments_cnt }})</h2> 
+                                                <h2>@lang('blog::app.shop.velocity.comments') ({{ $total_comments_cnt }})</h2> 
                                                 <div class="row flex flex-wrap grid-wrap">
 
                                                     @php
@@ -187,7 +187,7 @@
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fa fa-user"> </i></span>
                                                                                     </div> 
-                                                                                    <input type="text" name="name" placeholder="Your Name" required="required" class="form-control" value="{{ ( isset($loggedIn_user_name) && !empty($loggedIn_user_name) && !is_null($loggedIn_user_name) ) ? $loggedIn_user_name : ''; }}">
+                                                                                    <input type="text" name="name" placeholder="{{ lang('blog::app.shop.comment.your_name') }}" required="required" class="form-control" value="{{ ( isset($loggedIn_user_name) && !empty($loggedIn_user_name) && !is_null($loggedIn_user_name) ) ? $loggedIn_user_name : ''; }}">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group column-6">
@@ -195,12 +195,12 @@
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                                                                                     </div>
-                                                                                    <input type="email" name="email" placeholder="Your Email" required="required" class="form-control" value="{{ ( isset($loggedIn_user_email) && !empty($loggedIn_user_email) && !is_null($loggedIn_user_email) ) ? $loggedIn_user_email : ''; }}">
+                                                                                    <input type="email" name="email" placeholder="{{ lang('blog::app.shop.comment.your_email') }}" required="required" class="form-control" value="{{ ( isset($loggedIn_user_email) && !empty($loggedIn_user_email) && !is_null($loggedIn_user_email) ) ? $loggedIn_user_email : ''; }}">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="form-group">
-                                                                            <textarea name="comment" placeholder="Your Comment" required="required" rows="5" class="form-control"></textarea>
+                                                                            <textarea name="comment" placeholder="{{ lang('blog::app.shop.comment.your_comment') }}" required="required" rows="5" class="form-control"></textarea>
                                                                         </div>
                                                                         <div class="form-group text-right">
                                                                             <button type="submit" class="btn btn-primary btn-lg">@lang('blog::app.shop.velocity.comment')</button>

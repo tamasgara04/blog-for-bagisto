@@ -36,10 +36,11 @@ return [
         ],
         'index' => [
             'article' => 'Cikk',
+            'read_more' => 'Olvass tovább',
         ],    
         'tag' => [
             'page_title' => 'Blog Címke Oldal',
-            'read_more' => 'Olvass tovább >',
+            'read_more' => 'Olvass tovább',
             'no_posts' => 'Még nincs közzétett bejegyzés!!',
             'categories' => 'Kategóriák',
             'tags' => 'Címkék',
@@ -55,6 +56,7 @@ return [
             'related_blog' => 'Kapcsolódó blog',
             'leave_comment' => 'Szólj hozzá',
             'comment' => 'Hozzászólás',
+            'comments' => 'Hozzászólások',
             'comment-login' => 'A hozzászóláshoz be kell jelentkezned. Kattints <a href=":login_url" target="_blank">ide</a> a bejelentkezéshez.',
             'comments_off' => 'A hozzászólások ki vannak kapcsolva.',
         ],                 

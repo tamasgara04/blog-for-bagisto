@@ -11,7 +11,7 @@ return [
         ],
         'author' => [
             'author_page' => 'Blog Author Page',
-            'read_more' => 'Read more >',
+            'read_more' => 'Read more',
             'posts_by_author' => 'Posts by :author',
             'no_posts' => 'No post published yet!!',
             'categories' => 'Categories',
@@ -19,7 +19,7 @@ return [
         ],
         'category' => [
             'page_title' => 'Blog Category Page',
-            'read_more' => 'Read more >',
+            'read_more' => 'Read more',
             'posts_by_author' => 'Posts by :author',
             'no_posts' => 'No post published yet!!',
             'categories' => 'Categories',
@@ -36,6 +36,7 @@ return [
         ],
         'index' => [
             'article' => 'Package Article',
+            'read_more' => 'Read More',
         ],
         'tag' => [
             'page_title' => 'Blog Tag Page',
@@ -55,6 +56,7 @@ return [
             'related_blog' => 'Related Blog',
             'leave_comment' => 'Leave a comment',
             'comment' => 'Comment',
+            'comments' => 'Comments',
             'comment-login' => 'You must be logged in to comment. Click <a href=":login_url" target="_blank">here</a> to login.',
             'comments_off' => 'Comments are turned off.',
         ]            

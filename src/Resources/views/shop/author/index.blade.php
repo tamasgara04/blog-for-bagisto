@@ -78,7 +78,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">
-                                                                    <a href="{{route('shop.article.view',[$blog->category->slug . '/' . $blog->slug])}}" class="text-uppercase btn-text-link">Read more ></a>
+                                                                    <a href="{{route('shop.article.view',[$blog->category->slug . '/' . $blog->slug])}}" class="text-uppercase btn-text-link">@lang('blog::app.shop.index.read_more')</a>
                                                                 </div>
                                                             </div>
                                                         </div>

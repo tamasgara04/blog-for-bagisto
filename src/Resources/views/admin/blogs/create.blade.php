@@ -67,7 +67,7 @@
                         </x-admin::form.control-group.label>
 
                         <v-field type="text" name="name" value="{{ old('name') }}" label="{{ trans('blog::app.blog.name') }}" rules="required" v-slot="{ field }">
-                            <input type="text" name="name" id="name" v-bind="field" :class="[errors['{{ 'name' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ trans('blog::app.blog.name') }}" v-slugify-target:slug="setValues">
+                            <input type="text" name="name" id="name" v-bind="field" :class="[errors['{{ 'name' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ lang('blog::app.blog.name') }}" v-slugify-target:slug="setValues">
                         </v-field>
 
                         <x-admin::form.control-group.error control-name="name">
@@ -81,7 +81,7 @@
                         </x-admin::form.control-group.label>
 
                         <v-field type="text" name="slug" value="{{ old('slug') }}" label="{{ trans('admin::app.catalog.categories.create.slug') }}" rules="required" v-slot="{ field }">
-                            <input type="text" name="slug" id="slug" v-bind="field" :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="URL-tag" v-slugify-target:slug>
+                            <input type="text" name="slug" id="slug" v-bind="field" :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ lang('blog::app.blog.slug') }}" v-slugify-target:slug>
                         </v-field>
 
                         <x-admin::form.control-group.error control-name="slug">
@@ -102,7 +102,7 @@
                             @lang('blog::app.blog.short_description')
                         </x-admin::form.control-group.label>
 
-                        <x-admin::form.control-group.control type="textarea" name="short_description" id="short_description" rules="required" :value="old('short_description')" :label="trans('blog::app.blog.short_description')" :placeholder="trans('blog::app.blog.short_description')">
+                        <x-admin::form.control-group.control type="textarea" name="short_description" id="short_description" rules="required" :value="old('short_description')" :label="trans('blog::app.blog.short_description')" :placeholder="lang('blog::app.blog.short_description')">
                         </x-admin::form.control-group.control>
 
                         <x-admin::form.control-group.error control-name="short_description"></x-admin::form.control-group.error>
@@ -116,7 +116,7 @@
                                 @lang('blog::app.blog.description')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="textarea" name="description" id="description" class="description" rules="required" :value="old('description')" :label="trans('blog::app.blog.description')" :tinymce="true" :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')">
+                            <x-admin::form.control-group.control type="textarea" name="description" id="description" class="description" rules="required" :value="old('description')" :label="trans('blog::app.blog.description')" :tinymce="true" placeholder="{{ lang('blog::app.blog.description') }}" :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')">
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.error control-name="description">
@@ -157,7 +157,7 @@
                                 @lang('blog::app.blog.meta_title')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="text" name="meta_title" id="meta_title" rules="required" :value="old('meta_title')" :label="trans('blog::app.blog.meta_title')" :placeholder="trans('blog::app.blog.meta_title')">
+                            <x-admin::form.control-group.control type="text" name="meta_title" id="meta_title" rules="required" :value="old('meta_title')" :label="trans('blog::app.blog.meta_title')" :placeholder="lang('blog::app.blog.meta_title')">
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.error control-name="meta_title"></x-admin::form.control-group.error>
@@ -240,7 +240,7 @@
                             </x-admin::form.control-group.control>
                         </x-admin::form.control-group>
 
-                        <!-- Auther -->
+                        <!-- Author -->
                         @php
 
                         $loggedIn_user = auth()->guard('admin')->user()->toarray();
@@ -262,7 +262,7 @@
                             @else
                             <x-admin::form.control-group.control type="select" name="author_id" id="author_id" {{-- class="cursor-pointer" --}} rules="required" :value="old('author_id') ?? $user_id" :label="trans('blog::app.blog.author')" {{-- :placeholder="trans('blog::app.blog.author')" --}}>
                                 <!-- Options -->
-                                <option value="">Select an author</option>
+                                <option value="">@lang('blog::app.blog.select_author')</option>
                                 @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->name}}</option>
                                 @endforeach

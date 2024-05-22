@@ -26,7 +26,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fa fa-user"></i></span>
                                             </div>
-                                            <input type="text" name="name" placeholder="{{ @lang('blog::app.shop.comment.your_name') }}" required="required" class="form-control" value="{{ ( isset($loggedIn_user_name) && !empty($loggedIn_user_name) && !is_null($loggedIn_user_name) ) ? $loggedIn_user_name : ''; }}">
+                                            <input type="text" name="name" placeholder="{{ lang('blog::app.shop.comment.your_name') }}" required="required" class="form-control" value="{{ ( isset($loggedIn_user_name) && !empty($loggedIn_user_name) && !is_null($loggedIn_user_name) ) ? $loggedIn_user_name : ''; }}">
                                         </div>
                                     </div>
                                     <div class="form-group column-6">
@@ -34,7 +34,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                                             </div>
-                                            <input type="email" name="email" placeholder="{{ @lang('blog::app.shop.comment.your_email') }} " required="required" class="form-control" value="{{ ( isset($loggedIn_user_email) && !empty($loggedIn_user_email) && !is_null($loggedIn_user_email) ) ? $loggedIn_user_email : ''; }}">
+                                            <input type="email" name="email" placeholder="{{ lang('blog::app.shop.comment.your_email') }} " required="required" class="form-control" value="{{ ( isset($loggedIn_user_email) && !empty($loggedIn_user_email) && !is_null($loggedIn_user_email) ) ? $loggedIn_user_email : ''; }}">
                                         </div>
                                     </div>
                                 </div>
