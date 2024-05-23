@@ -34,19 +34,21 @@ class BlogRepository extends Repository
     {
         Event::dispatch('admin.blogs.create.before', $data);
 
-        $create_data = $data;
+        // Extract translatable fields from the data
+        $translatableFields = Arr::only($data, ['name', 'short_description', 'description', 'meta_title', 'meta_description', 'meta_keywords']);
 
-        if ( array_key_exists('src', $create_data) ) {
-            unset($create_data['src']);
-        }
+        // Create the blog
+        $blog = $this->create(Arr::except($data, array_keys($translatableFields)));
 
-        $blog = $this->create($create_data);
+        // Save translations
+        $this->saveTranslations($blog, $translatableFields);
 
+        // Handle image upload
         $this->uploadImages($data, $blog);
 
         Event::dispatch('admin.blogs.create.after', $blog);
 
-        return true;
+        return $blog;
     }
 
     /**
@@ -60,19 +62,36 @@ class BlogRepository extends Repository
     {
         Event::dispatch('admin.blogs.update.before', $id);
 
-        $update_data = $data;
+        // Extract translatable fields from the data
+        $translatableFields = Arr::only($data, ['name', 'short_description', 'description', 'meta_title', 'meta_description', 'meta_keywords']);
 
-        if ( array_key_exists('src', $update_data) ) {
-            unset($update_data['src']);
-        }
+        // Update the blog
+        $blog = $this->update(Arr::except($data, array_keys($translatableFields)), $id);
 
-        $blog = $this->update($update_data, $id);
+        // Save translations
+        $this->saveTranslations($blog, $translatableFields);
 
+        // Handle image upload
         $this->uploadImages($data, $blog);
 
         Event::dispatch('admin.blogs.update.after', $blog);
 
-        return true;
+        return $blog;
+    }
+
+    /**
+     * Save translations for a blog.
+     *
+     * @param  \Webbycrown\BlogBagisto\Models\Blog  $blog
+     * @param  array  $translations
+     * @return void
+     */
+    protected function saveTranslations($blog, $translations)
+    {
+        foreach ($translations as $locale => $fields) {
+            $translation = BlogTranslations::firstOrNew(['blog_id' => $blog->id, 'locale' => $locale]);
+            $translation->fill($fields)->save();
+        }
     }
 
     /**
