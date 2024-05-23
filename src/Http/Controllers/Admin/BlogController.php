@@ -83,34 +83,70 @@ class BlogController extends Controller
      */
     public function store(BlogRequest $blogRequest)
     {
+        $data = $blogRequest->all();
 
-        $data = request()->all();
+        // Save main blog data
+        $blog = $this->blogRepository->create($data);
 
-        if (array_key_exists('locale', $data) &&  is_array($data['locale'])) {
-            $data['locale'] = implode(',', $data['locale']);
+        // Save translations
+        foreach ($data['locales'] as $locale) {
+            BlogTranslations::create([
+                'blog_id' => $blog->id,
+                'locale' => $locale,
+                'name' => $data['name'][$locale],
+                'short_description' => $data['short_description'][$locale],
+                'description' => $data['description'][$locale],
+                'meta_title' => $data['meta_title'][$locale],
+                'meta_description' => $data['meta_description'][$locale],
+                'meta_keywords' => $data['meta_keywords'][$locale],
+            ]);
         }
 
-        if (array_key_exists('tags', $data) &&  is_array($data['tags'])) {
-            $data['tags'] = implode(',', $data['tags']);
+        session()->flash('success', trans('admin::app.response.create-success', ['name' => 'Blog']));
+
+        return redirect()->route($this->_config['redirect']);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(BlogRequest $blogRequest, $id)
+    {
+        $data = $blogRequest->all();
+
+        // Update main blog data
+        $blog = $this->blogRepository->updateItem($data, $id);
+
+        // Update translations
+        foreach ($data['locales'] as $locale) {
+            $translation = BlogTranslations::where('blog_id', $id)->where('locale', $locale)->first();
+            if ($translation) {
+                $translation->update([
+                    'name' => $data['name'][$locale],
+                    'short_description' => $data['short_description'][$locale],
+                    'description' => $data['description'][$locale],
+                    'meta_title' => $data['meta_title'][$locale],
+                    'meta_description' => $data['meta_description'][$locale],
+                    'meta_keywords' => $data['meta_keywords'][$locale],
+                ]);
+            } else {
+                BlogTranslations::create([
+                    'blog_id' => $id,
+                    'locale' => $locale,
+                    'name' => $data['name'][$locale],
+                    'short_description' => $data['short_description'][$locale],
+                    'description' => $data['description'][$locale],
+                    'meta_title' => $data['meta_title'][$locale],
+                    'meta_description' => $data['meta_description'][$locale],
+                    'meta_keywords' => $data['meta_keywords'][$locale],
+                ]);
+            }
         }
 
-        if (array_key_exists('categorys', $data) && is_array($data['categorys'])) {
-            $data['categorys'] = implode(',', $data['categorys']);
-        }
-
-        $data['author'] = '';
-        if (is_array($data) && array_key_exists('author_id', $data) && isset($data['author_id']) && (int)$data['author_id'] > 0) {
-            $author_data = Admin::where('id', $data['author_id'])->first();
-            $data['author'] = ( $author_data && !empty($author_data) ) ? $author_data->name : '';
-        }
-
-        $result = $this->blogRepository->save($data);
-
-        if ($result) {
-            session()->flash('success', trans('admin::app.response.create-success', ['name' => 'Blog']));
-        } else {
-            session()->flash('success', trans('blog::app.blog.created-fault'));
-        }
+        session()->flash('success', trans('admin::app.catalog.attributes.families.index.datagrid.update-success', ['name' => 'Blog']));
 
         return redirect()->route($this->_config['redirect']);
     }
@@ -124,12 +160,12 @@ class BlogController extends Controller
     public function edit($id)
     {
         $loggedIn_user = auth()->guard('admin')->user()->toarray();
-        $user_id = ( array_key_exists('id', $loggedIn_user) ) ? $loggedIn_user['id'] : 0;
-        $role = ( array_key_exists('role', $loggedIn_user) ) ? ( array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator' ) : 'Administrator';
+        $user_id = (array_key_exists('id', $loggedIn_user)) ? $loggedIn_user['id'] : 0;
+        $role = (array_key_exists('role', $loggedIn_user)) ? (array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator') : 'Administrator';
 
         $blog = $this->blogRepository->findOrFail($id);
 
-        if ( $blog && $user_id != $blog->author_id && $role != 'Administrator' ) {
+        if ($blog && $user_id != $blog->author_id && $role != 'Administrator') {
             return redirect()->route('admin.blog.index');
         }
 
@@ -142,46 +178,6 @@ class BlogController extends Controller
         $users = Admin::all();
 
         return view($this->_config['view'], compact('blog', 'categories', 'tags', 'users', 'additional_categories'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(BlogRequest $blogRequest, $id)
-    {
-
-        $data = request()->all();
-
-        if (array_key_exists('locale', $data) && is_array($data['locale'])) {
-            $data['locale'] = implode(',', $data['locale']);
-        }
-        
-        if (array_key_exists('tags', $data) && is_array($data['tags'])) {
-            $data['tags'] = implode(',', $data['tags']);
-        }
-        
-        if (array_key_exists('categorys', $data) && is_array($data['categorys'])) {
-            $data['categorys'] = implode(',', $data['categorys']);
-        }
-
-        $data['author'] = '';
-        if (is_array($data) && array_key_exists('author_id', $data) && isset($data['author_id']) && (int)$data['author_id'] > 0) {
-            $author_data = Admin::where('id', $data['author_id'])->first();
-            $data['author'] = ( $author_data && !empty($author_data) ) ? $author_data->name : '';
-        }
-
-        $result = $this->blogRepository->updateItem($data, $id);
-
-        if ($result) {
-            session()->flash('success', trans('admin::app.catalog.attributes.families.index.datagrid.update-success', ['name' => 'Blog']));
-        } else {
-            session()->flash('error', trans('blog::app.blog.updated-fault'));
-        }
-
-        return redirect()->route($this->_config['redirect']);
     }
 
     /**
@@ -228,7 +224,7 @@ class BlogController extends Controller
                 }
             }
 
-            if (! $suppressFlash) {
+            if (!$suppressFlash) {
                 session()->flash('success', trans('admin::app.datagrid.mass-ops.delete-success', ['resource' => 'Blog']));
             } else {
                 session()->flash('info', trans('admin::app.datagrid.mass-ops.partial-action', ['resource' => 'Blog']));
