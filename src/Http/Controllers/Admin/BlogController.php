@@ -176,7 +176,7 @@ class BlogController extends Controller
         $result = $this->blogRepository->updateItem($data, $id);
 
         if ($result) {
-            session()->flash('success', trans('admin::app.response.update-success', ['name' => 'Blog']));
+            session()->flash('success', trans('admin::app.catalog.attributes.families.index.datagrid.update-success', ['name' => 'Blog']));
         } else {
             session()->flash('error', trans('blog::app.blog.updated-fault'));
         }

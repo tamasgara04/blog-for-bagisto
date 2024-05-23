@@ -14,6 +14,10 @@
     @endPushOnce
 
     @php
+    $channels = core()->getAllChannels();
+
+    $currentChannel = core()->getRequestedChannel();
+
     $currentLocale = core()->getRequestedLocale();
     @endphp
 
@@ -40,6 +44,61 @@
             </div>
         </div>
 
+        <!-- Channel and Locale Switcher -->
+        <div class="flex  gap-4 justify-between items-center mt-7 max-md:flex-wrap">
+            <div class="flex gap-x-1 items-center">
+                <!-- Channel Switcher -->
+                <x-admin::dropdown :class="$channels->count() <= 1 ? 'hidden' : ''">
+                    <!-- Dropdown Toggler -->
+                    <x-slot:toggle>
+                        <button type="button" class="transparent-button px-1 py-1.5 hover:bg-gray-200 dark:hover:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-800 dark:text-white">
+                            <span class="icon-store text-2xl"></span>
+
+                            {{ $currentChannel->name }}
+
+                            <input type="hidden" name="channel" value="{{ $currentChannel->code }}" />
+
+                            <span class="icon-sort-down text-2xl"></span>
+                        </button>
+                        </x-slot>
+
+                        <!-- Dropdown Content -->
+                        <x-slot:content class="!p-0">
+                            @foreach ($channels as $channel)
+                            <a href="?{{ Arr::query(['channel' => $channel->code, 'locale' => $currentLocale->code]) }}" class="flex gap-2.5 px-5 py-2 text-base cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-950 dark:text-white">
+                                {{ $channel->name }}
+                            </a>
+                            @endforeach
+                            </x-slot>
+                </x-admin::dropdown>
+
+                <!-- Locale Switcher -->
+                <x-admin::dropdown :class="$currentChannel->locales->count() <= 1 ? 'hidden' : ''">
+                    <!-- Dropdown Toggler -->
+                    <x-slot:toggle>
+                        <button type="button" class="transparent-button px-1 py-1.5 hover:bg-gray-200 dark:hover:bg-gray-800 focus:bg-gray-200 dark:focus:bg-gray-800 dark:text-white">
+                            <span class="icon-language text-2xl"></span>
+
+                            {{ $currentLocale->name }}
+
+                            <input type="hidden" name="locale" value="{{ $currentLocale->code }}" />
+
+                            <span class="icon-sort-down text-2xl"></span>
+                        </button>
+                        </x-slot>
+
+                        <!-- Dropdown Content -->
+                        <x-slot:content class="!p-0">
+                            @foreach ($currentChannel->locales->sortBy('name') as $locale)
+                            <a href="?{{ Arr::query(['channel' => $currentChannel->code, 'locale' => $locale->code]) }}" class="flex gap-2.5 px-5 py-2 text-base cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-950 dark:text-white {{ $locale->code == $currentLocale->code ? 'bg-gray-100 dark:bg-gray-950' : ''}}">
+                                {{ $locale->name }}
+                            </a>
+                            @endforeach
+                            </x-slot>
+                </x-admin::dropdown>
+            </div>
+        </div>
+
         <!-- Full Pannel -->
         <div class="flex gap-2.5 mt-3.5 max-xl:flex-wrap">
 
@@ -53,11 +112,11 @@
                     </p>
 
                     <!-- Locales -->
-                    <x-admin::form.control-group.control type="hidden" name="locale" value="@currentLocal">
+                    <x-admin::form.control-group.control type="hidden" name="locale" value="{{ $currentLocale->code }}">
                     </x-admin::form.control-group.control>
 
                     <!-- Channel -->
-                    <x-admin::form.control-group.control type="hidden" name="channels" value="1">
+                    <x-admin::form.control-group.control type="hidden" name="channels" value="{{ $currentChannel}}">
                     </x-admin::form.control-group.control>
 
                     <!-- Name -->
