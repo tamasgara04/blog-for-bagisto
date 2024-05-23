@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Webbycrown\BlogBagisto\Models\Category;
+use Webbycrown\BlogBagisto\Models\BlogTranslations;
 use Webkul\Core\Eloquent\Repository;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Str;
@@ -161,12 +162,12 @@ class BlogRepository extends Repository
      */
     public function getActiveBlogs()
     {
-        $locale = config('app.locale');
+        $locale = app()->getLocale();
 
         $blogs = DB::table('blogs')
             ->where('published_at', '<=', Carbon::now()->format('Y-m-d'))
             ->where('status', 1)
-            ->where('locale', $locale)
+            ->where('locale', $locale) // Filter by current locale
             ->orderBy('id', 'DESC')
             ->paginate(12);
 

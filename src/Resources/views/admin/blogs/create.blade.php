@@ -68,8 +68,8 @@
                             @lang('blog::app.blog.name')
                         </x-admin::form.control-group.label>
 
-                        <v-field type="text" name="name" value="{{ old('name') ?? $blog->name }}" label="{{ trans('blog::app.blog.name') }}" rules="required" v-slot="{ field }">
-                            <input type="text" name="name" id="name" v-bind="field" :class="[errors['{{ 'name' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ trans('blog::app.blog.name') }}" v-slugify-target:slug="setValues">
+                        <v-field type="text" name="name" value="{{ old('name') ?? $blog->translate('name', $currentLocale) }}" label="{{ trans('blog::app.blog.name') }}" rules="required" v-slot="{ field }">
+                            <input type="text" name="name" id="name" v-bind="field" :class="[errors['name'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ trans('blog::app.blog.name') }}" v-slugify-target:slug="setValues">
                         </v-field>
 
                         <x-admin::form.control-group.error control-name="name">
@@ -104,7 +104,7 @@
                             @lang('blog::app.blog.short_description')
                         </x-admin::form.control-group.label>
 
-                        <x-admin::form.control-group.control type="textarea" name="short_description" id="short_description" rules="required" :value="old('short_description') ?? $blog->short_description" :label="trans('blog::app.blog.short_description')" :placeholder="trans('blog::app.blog.short_description')">
+                        <x-admin::form.control-group.control type="textarea" name="short_description" id="short_description" rules="required" :value="old('short_description') ?? $blog->translate('short_description', $currentLocale)" :label="trans('blog::app.blog.short_description')" :placeholder="trans('blog::app.blog.short_description')">
                         </x-admin::form.control-group.control>
 
                         <x-admin::form.control-group.error control-name="short_description"></x-admin::form.control-group.error>
@@ -118,7 +118,7 @@
                                 @lang('blog::app.blog.description')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="textarea" name="description" id="description" class="description" rules="required" :value="old('description') ?? $blog->description" :label="trans('blog::app.blog.description')" :tinymce="true" :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')">
+                            <x-admin::form.control-group.control type="textarea" name="description" id="description" class="description" rules="required" :value="old('description') ?? $blog->translate('description', $currentLocale)" :label="trans('blog::app.blog.description')" :tinymce="true" :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')">
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.error control-name="description">

@@ -10,6 +10,7 @@ use Webbycrown\BlogBagisto\Datagrids\BlogDataGrid;
 use Webbycrown\BlogBagisto\Models\Category;
 use Webbycrown\BlogBagisto\Models\Tag;
 use Webbycrown\BlogBagisto\Models\Blog;
+use Webbycrown\BlogBagisto\Models\BlogTranslations;
 use Webbycrown\BlogBagisto\Repositories\BlogRepository;
 use Webkul\User\Models\Admin;
 use Webbycrown\BlogBagisto\Http\Requests\BlogRequest;
@@ -84,23 +85,22 @@ class BlogController extends Controller
     public function store(BlogRequest $blogRequest)
     {
         $data = $blogRequest->all();
+        $locale = app()->getLocale();
 
         // Save main blog data
         $blog = $this->blogRepository->create($data);
 
-        // Save translations
-        foreach ($data['locales'] as $locale) {
-            BlogTranslations::create([
-                'blog_id' => $blog->id,
-                'locale' => $locale,
-                'name' => $data['name'][$locale],
-                'short_description' => $data['short_description'][$locale],
-                'description' => $data['description'][$locale],
-                'meta_title' => $data['meta_title'][$locale],
-                'meta_description' => $data['meta_description'][$locale],
-                'meta_keywords' => $data['meta_keywords'][$locale],
-            ]);
-        }
+        // Save translations for the current locale
+        BlogTranslations::create([
+            'blog_id' => $blog->id,
+            'locale' => $locale,
+            'name' => $data['name'][$locale],
+            'short_description' => $data['short_description'][$locale],
+            'description' => $data['description'][$locale],
+            'meta_title' => $data['meta_title'][$locale],
+            'meta_description' => $data['meta_description'][$locale],
+            'meta_keywords' => $data['meta_keywords'][$locale],
+        ]);
 
         session()->flash('success', trans('admin::app.response.create-success', ['name' => 'Blog']));
 
