@@ -70,6 +70,7 @@
 
                         <v-field type="text" name="name" value="{{ old('name') ?? $blog->translate('name', $currentLocale) }}" label="{{ trans('blog::app.blog.name') }}" rules="required" v-slot="{ field }">
                             <input type="text" name="name" id="name" v-bind="field" :class="[errors['name'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ trans('blog::app.blog.name') }}" v-slugify-target:slug="setValues">
+
                         </v-field>
 
                         <x-admin::form.control-group.error control-name="name">
