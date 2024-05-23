@@ -99,7 +99,7 @@
             </div>
         </div>
 
-        <!-- Full Pannel -->
+        <!-- Full Panel -->
         <div class="flex gap-2.5 mt-3.5 max-xl:flex-wrap">
 
             <!-- Left Section -->
@@ -125,11 +125,11 @@
                             @lang('blog::app.blog.name')
                         </x-admin::form.control-group.label>
 
-                        <v-field type="text" name="name" value="{{ old('name') ?? $blog->name }}" label="{{ trans('blog::app.blog.name') }}" rules="required" v-slot="{ field }">
-                            <input type="text" name="name" id="name" v-bind="field" :class="[errors['{{ 'name' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ trans('blog::app.blog.name') }}" v-slugify-target:slug="setValues">
+                        <v-field type="text" name="translations[{{ $currentLocale->code }}][name]" value="{{ old('translations.' . $currentLocale->code . '.name') ?? $blog->translation->name }}" label="{{ trans('blog::app.blog.name') }}" rules="required" v-slot="{ field }">
+                            <input type="text" name="translations[{{ $currentLocale->code }}][name]" id="name" v-bind="field" :class="[errors['translations.{{ $currentLocale->code }}.name'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ trans('blog::app.blog.name') }}" v-slugify-target:slug="setValues">
                         </v-field>
 
-                        <x-admin::form.control-group.error control-name="name">
+                        <x-admin::form.control-group.error control-name="translations[{{ $currentLocale->code }}][name]">
                         </x-admin::form.control-group.error>
                     </x-admin::form.control-group>
 
@@ -140,13 +140,12 @@
                         </x-admin::form.control-group.label>
 
                         <v-field type="text" name="slug" value="{{ old('slug') ?? $blog->slug }}" label="slug" rules="required" v-slot="{ field }">
-                            <input type="text" name="slug" id="slug" v-bind="field" :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="URL tag" v-slugify-target:slug>
+                            <input type="text" name="slug" id="slug" v-bind="field" :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ trans('blog::app.blog.slug') }}" v-slugify-target:slug>
                         </v-field>
 
                         <x-admin::form.control-group.error control-name="slug">
                         </x-admin::form.control-group.error>
                     </x-admin::form.control-group>
-
                 </div>
 
                 <!-- Description and images -->
@@ -155,17 +154,16 @@
                         @lang('blog::app.blog.description-and-images')
                     </p>
 
-                    <!-- Meta Description -->
+                    <!-- Short Description -->
                     <x-admin::form.control-group class="mb-2.5">
                         <x-admin::form.control-group.label class="required">
                             @lang('blog::app.blog.short_description')
                         </x-admin::form.control-group.label>
 
-                        <x-admin::form.control-group.control type="textarea" name="short_description" id="short_description" rules="required" :value="old('short_description') ?? $blog->short_description" :label="trans('blog::app.blog.short_description')" :placeholder="trans('blog::app.blog.short_description')">
+                        <x-admin::form.control-group.control type="textarea" name="translations[{{ $currentLocale->code }}][short_description]" id="short_description" rules="required" :value="old('translations.' . $currentLocale->code . '.short_description') ?? $blog->translation->short_description" :label="trans('blog::app.blog.short_description')" :placeholder="trans('blog::app.blog.short_description')">
                         </x-admin::form.control-group.control>
 
-                        <x-admin::form.control-group.error control-name="short_description"></x-admin::form.control-group.error>
-
+                        <x-admin::form.control-group.error control-name="translations[{{ $currentLocale->code }}][short_description]"></x-admin::form.control-group.error>
                     </x-admin::form.control-group>
 
                     <!-- Description -->
@@ -175,10 +173,10 @@
                                 @lang('blog::app.blog.description')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="textarea" name="description" id="description" class="description" rules="required" :value="old('description') ?? $blog->description" :label="trans('blog::app.blog.description')" :tinymce="true" :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')">
+                            <x-admin::form.control-group.control type="textarea" name="translations[{{ $currentLocale->code }}][description]" id="description" class="description" rules="required" :value="old('translations.' . $currentLocale->code . '.description') ?? $blog->translation->description" :label="trans('blog::app.blog.description')" :tinymce="true" :prompt="core()->getConfigData('general.magic_ai.content_generation.category_description_prompt')">
                             </x-admin::form.control-group.control>
 
-                            <x-admin::form.control-group.error control-name="description">
+                            <x-admin::form.control-group.error control-name="translations[{{ $currentLocale->code }}][description]">
                             </x-admin::form.control-group.error>
                         </x-admin::form.control-group>
                     </v-description>
@@ -191,22 +189,18 @@
                             </p>
 
                             <x-admin::media.images name="src" :uploaded-images="$blog->src ? [['id' => 'src', 'url' => $blog->src_url]] : []">
-
                             </x-admin::media.images>
-
                         </div>
-
                     </div>
                 </div>
 
-                <!-- SEO Deatils -->
+                <!-- SEO Details -->
                 <div class="p-4 bg-white dark:bg-gray-900 rounded box-shadow">
                     <p class="text-base text-gray-800 dark:text-white font-semibold mb-4">
                         @lang('blog::app.blog.search_engine_optimization')
                     </p>
 
-                    <!-- SEO Title & Description Blade Componnet -->
-                    {{-- <x-admin::seo/> --}}
+                    <!-- SEO Title & Description Blade Component -->
                     <v-seo-helper-custom></v-seo-helper-custom>
 
                     <div class="mt-8">
@@ -216,11 +210,10 @@
                                 @lang('blog::app.blog.meta_title')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="text" name="meta_title" id="meta_title" rules="required" :value="old('meta_title') ?? $blog->meta_title" :label="trans('blog::app.blog.meta_title')" :placeholder="trans('blog::app.blog.meta_title')">
+                            <x-admin::form.control-group.control type="text" name="translations[{{ $currentLocale->code }}][meta_title]" id="meta_title" rules="required" :value="old('translations.' . $currentLocale->code . '.meta_title') ?? $blog->translation->meta_title" :label="trans('blog::app.blog.meta_title')" :placeholder="trans('blog::app.blog.meta_title')">
                             </x-admin::form.control-group.control>
 
-                            <x-admin::form.control-group.error control-name="meta_title"></x-admin::form.control-group.error>
-
+                            <x-admin::form.control-group.error control-name="translations[{{ $currentLocale->code }}][meta_title]"></x-admin::form.control-group.error>
                         </x-admin::form.control-group>
 
                         <!-- Meta Keywords -->
@@ -229,11 +222,10 @@
                                 @lang('blog::app.blog.meta_keywords')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="text" name="meta_keywords" rules="required" :value="old('meta_keywords') ?? $blog->meta_keywords" :label="trans('blog::app.blog.meta_keywords')" :placeholder="trans('blog::app.blog.meta_keywords')">
+                            <x-admin::form.control-group.control type="text" name="translations[{{ $currentLocale->code }}][meta_keywords]" rules="required" :value="old('translations.' . $currentLocale->code . '.meta_keywords') ?? $blog->translation->meta_keywords" :label="trans('blog::app.blog.meta_keywords')" :placeholder="trans('blog::app.blog.meta_keywords')">
                             </x-admin::form.control-group.control>
 
-                            <x-admin::form.control-group.error control-name="meta_keywords"></x-admin::form.control-group.error>
-
+                            <x-admin::form.control-group.error control-name="translations[{{ $currentLocale->code }}][meta_keywords]"></x-admin::form.control-group.error>
                         </x-admin::form.control-group>
 
                         <!-- Meta Description -->
@@ -242,180 +234,179 @@
                                 @lang('blog::app.blog.meta_description')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="textarea" name="meta_description" id="meta_description" rules="required" :value="old('meta_description') ?? $blog->meta_description" :label="trans('blog::app.blog.meta_description')" :placeholder="trans('blog::app.blog.meta_description')">
+                            <x-admin::form.control-group.control type="textarea" name="translations[{{ $currentLocale->code }}][meta_description]" id="meta_description" rules="required" :value="old('translations.' . $currentLocale->code . '.meta_description') ?? $blog->translation->meta_description" :label="trans('blog::app.blog.meta_description')" :placeholder="trans('blog::app.blog.meta_description')">
                             </x-admin::form.control-group.control>
 
-                            <x-admin::form.control-group.error control-name="meta_description"></x-admin::form.control-group.error>
-
+                            <x-admin::form.control-group.error control-name="translations[{{ $currentLocale->code }}][meta_description]"></x-admin::form.control-group.error>
                         </x-admin::form.control-group>
                     </div>
                 </div>
-
             </div>
+        </div>
 
-            <!-- Right Section -->
-            <div class="flex flex-col gap-2 w-[360px] max-w-full">
-                <!-- Settings -->
+        <!-- Right Section -->
+        <div class="flex flex-col gap-2 w-[360px] max-w-full">
+            <!-- Settings -->
 
-                <x-admin::accordion>
-                    <x-slot:header>
-                        <p class="p-2.5 text-gray-800 dark:text-gray-300 text-base font-semibold">
-                            @lang('admin::app.catalog.categories.create.settings')
-                        </p>
-                    </x-slot:header>
+            <x-admin::accordion>
+                <x-slot:header>
+                    <p class="p-2.5 text-gray-800 dark:text-gray-300 text-base font-semibold">
+                        @lang('admin::app.catalog.categories.create.settings')
+                    </p>
+                </x-slot:header>
 
-                    <x-slot:content>
+                <x-slot:content>
 
-                        <!-- Published At -->
-                        <x-admin::form.control-group class="w-full mb-2.5">
-                            <x-admin::form.control-group.label class="required">
-                                @lang('blog::app.blog.published_at')
-                            </x-admin::form.control-group.label>
+                    <!-- Published At -->
+                    <x-admin::form.control-group class="w-full mb-2.5">
+                        <x-admin::form.control-group.label class="required">
+                            @lang('blog::app.blog.published_at')
+                        </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="date" name="published_at" id="published_at" rules="required" :value="old('published_at') ?? date_format(date_create($blog->published_at),'Y-m-d')" :label="trans('blog::app.blog.published_at')" :placeholder="trans('blog::app.blog.published_at')">
-                            </x-admin::form.control-group.control>
+                        <x-admin::form.control-group.control type="date" name="published_at" id="published_at" rules="required" :value="old('published_at') ?? date_format(date_create($blog->published_at),'Y-m-d')" :label="trans('blog::app.blog.published_at')" :placeholder="trans('blog::app.blog.published_at')">
+                        </x-admin::form.control-group.control>
 
-                            <x-admin::form.control-group.error control-name="published_at">
-                            </x-admin::form.control-group.error>
-                        </x-admin::form.control-group>
-
-                        <!-- Status -->
-                        <input type="hidden" name="status" id="status" value="@php echo $blog->status @endphp">
-                        <x-admin::form.control-group>
-                            <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
-                                @lang('blog::app.blog.status')
-                            </x-admin::form.control-group.label>
-
-                            @php $selectedValue_status = old('status') ?: $blog->status @endphp
-
-                            <x-admin::form.control-group.control type="switch" name="status_switch" id="status_switch" class="cursor-pointer" value="1" :label="trans('blog::app.blog.status')" :checked="(boolean) $selectedValue_status">
-                            </x-admin::form.control-group.control>
-                        </x-admin::form.control-group>
-
-                        <!-- Allow Comments -->
-                        <input type="hidden" name="allow_comments" id="allow_comments" value="@php echo $blog->allow_comments @endphp">
-                        <x-admin::form.control-group>
-                            <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
-                                @lang('blog::app.blog.allow_comments')
-                            </x-admin::form.control-group.label>
-
-                            @php $selectedValue_allow_comments = old('allow_comments') ?: $blog->allow_comments @endphp
-
-                            <x-admin::form.control-group.control type="switch" name="allow_comments_switch" class="cursor-pointer" value="1" :label="trans('blog::app.blog.allow_comments')" :checked="(boolean) $selectedValue_allow_comments">
-                            </x-admin::form.control-group.control>
-                        </x-admin::form.control-group>
-
-                        <!-- Auther -->
-                        @php
-
-                        $loggedIn_user = auth()->guard('admin')->user()->toarray();
-                        $user_id = ( array_key_exists('id', $loggedIn_user) ) ? $loggedIn_user['id'] : 0;
-                        $user_name = ( array_key_exists('name', $loggedIn_user) ) ? $loggedIn_user['name'] : '';
-                        $role = ( array_key_exists('role', $loggedIn_user) ) ? ( array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator' ) : 'Administrator';
-
-                        @endphp
-
-                        <x-admin::form.control-group class="mb-2.5">
-                            <x-admin::form.control-group.label class="required text-gray-800 dark:text-white font-medium required">
-                                @lang('blog::app.blog.author')
-                            </x-admin::form.control-group.label>
-
-                            @if( $role != 'Administrator' )
-                            <input type="hidden" name="author_id" id="author_id" value="{{$user_id}}">
-                            <x-admin::form.control-group.control type="text" name="author" rules="required" disabled="disabled" :value="$user_name" :label="trans('blog::app.blog.author')" :placeholder="trans('blog::app.blog.author')">
-                            </x-admin::form.control-group.control>
-                            @else
-                            <x-admin::form.control-group.control type="select" name="author_id" id="author_id" {{-- class="cursor-pointer" --}} rules="required" :value="old('author_id') ?? $blog->author_id" :label="trans('blog::app.blog.author')" {{-- :placeholder="trans('blog::app.blog.author')" --}}>
-                                <!-- Options -->
-                                <option value="">@lang('blog::app.blog.select_author')</option>
-                                @foreach($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
-                                @endforeach
-                            </x-admin::form.control-group.control>
-
-                            <x-admin::form.control-group.error control-name="author">
-                            </x-admin::form.control-group.error>
-                            @endif
-                        </x-admin::form.control-group>
-
-                    </x-slot:content>
-                </x-admin::accordion>
-
-                <!-- Default Categories -->
-                <x-admin::accordion>
-                    <x-slot:header>
-                        <p class="required p-2.5 text-gray-800 dark:text-gray-300 text-base font-semibold">
-                            @lang('blog::app.blog.additional_category')
-                        </p>
-                    </x-slot:header>
-
-                    <x-slot:content>
-
-                        <!-- Category -->
-                        <x-admin::form.control-group class="mb-2.5">
-
-                            <x-admin::form.control-group.control type="select" name="default_category" id="default_category" {{-- class="cursor-pointer" --}} rules="required" :value="old('default_category') ?? $blog->default_category" :label="trans('blog::app.blog.default_category')">
-                                <!-- Options -->
-                                <option value="">@lang('blog::app.blog.select_category')</option>
-                                @foreach($categories as $category)
-                                <option value="{{$category->id}}" data-slug="{{$category->slug}}" id="{{'default_category'.$category->id}}" {{ $blog->default_category == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
-                                @endforeach
-                            </x-admin::form.control-group.control>
-
-                            <x-admin::form.control-group.error control-name="default_category">
-                            </x-admin::form.control-group.error>
-                        </x-admin::form.control-group>
-
-                    </x-slot:content>
-                </x-admin::accordion>
-
-                <!-- Additional Category -->
-                <x-admin::accordion>
-                    <x-slot:header>
-                        <p class="p-2.5 text-gray-800 dark:text-gray-300 text-base font-semibold">
-                            @lang('blog::app.blog.additional_category')
-                        </p>
-                    </x-slot:header>
-
-                    <x-slot:content>
-
-                        <!-- Status -->
-                        <div class="flex flex-col gap-[12px]">
-                            <x-admin::tree.view input-type="checkbox" name-field="categorys" id-field="id" value-field="id" :items="json_encode($additional_categories)" :value="json_encode(explode(',', $blog->categorys))" behavior="no" :fallback-locale="config('app.fallback_locale')">
-                            </x-admin::tree.view>
-                        </div>
-
-                    </x-slot:content>
-                </x-admin::accordion>
-
-                <!-- Tags -->
-                <x-admin::accordion>
-                    <x-slot:header>
-                        <p class="required p-2.5 text-gray-800 dark:text-gray-300 text-base font-semibold">
-                            @lang('blog::app.blog.tag_title')
-                        </p>
-                    </x-slot:header>
-
-                    <x-slot:content>
-                        @foreach ($tags as $tag)
-                        <x-admin::form.control-group class="flex gap-2.5 !mb-0 p-1.5">
-                            <x-admin::form.control-group.control type="checkbox" name="tags[]" :id="$tag->name" :value="$tag->id" rules="required" :for="$tag->name" :label="trans('blog::app.blog.tags')" :checked="in_array($tag->id, explode(',', $blog->tags))">
-                            </x-admin::form.control-group.control>
-
-                            <x-admin::form.control-group.label :for="$tag->name" class="!text-sm !text-gray-600 dark:!text-gray-300 font-semibold cursor-pointer">
-                                {{ $tag->name }}
-                            </x-admin::form.control-group.label>
-                        </x-admin::form.control-group>
-                        @endforeach
-
-                        <x-admin::form.control-group.error control-name="tags[]">
+                        <x-admin::form.control-group.error control-name="published_at">
                         </x-admin::form.control-group.error>
-                    </x-slot:content>
-                </x-admin::accordion>
+                    </x-admin::form.control-group>
 
-                {!! view_render_event('admin.blogs.edit.after', ['blogs' => $blog]) !!}
+                    <!-- Status -->
+                    <input type="hidden" name="status" id="status" value="@php echo $blog->status @endphp">
+                    <x-admin::form.control-group>
+                        <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
+                            @lang('blog::app.blog.status')
+                        </x-admin::form.control-group.label>
 
-            </div>
+                        @php $selectedValue_status = old('status') ?: $blog->status @endphp
+
+                        <x-admin::form.control-group.control type="switch" name="status_switch" id="status_switch" class="cursor-pointer" value="1" :label="trans('blog::app.blog.status')" :checked="(boolean) $selectedValue_status">
+                        </x-admin::form.control-group.control>
+                    </x-admin::form.control-group>
+
+                    <!-- Allow Comments -->
+                    <input type="hidden" name="allow_comments" id="allow_comments" value="@php echo $blog->allow_comments @endphp">
+                    <x-admin::form.control-group>
+                        <x-admin::form.control-group.label class="text-gray-800 dark:text-white font-medium">
+                            @lang('blog::app.blog.allow_comments')
+                        </x-admin::form.control-group.label>
+
+                        @php $selectedValue_allow_comments = old('allow_comments') ?: $blog->allow_comments @endphp
+
+                        <x-admin::form.control-group.control type="switch" name="allow_comments_switch" class="cursor-pointer" value="1" :label="trans('blog::app.blog.allow_comments')" :checked="(boolean) $selectedValue_allow_comments">
+                        </x-admin::form.control-group.control>
+                    </x-admin::form.control-group>
+
+                    <!-- Auther -->
+                    @php
+
+                    $loggedIn_user = auth()->guard('admin')->user()->toarray();
+                    $user_id = ( array_key_exists('id', $loggedIn_user) ) ? $loggedIn_user['id'] : 0;
+                    $user_name = ( array_key_exists('name', $loggedIn_user) ) ? $loggedIn_user['name'] : '';
+                    $role = ( array_key_exists('role', $loggedIn_user) ) ? ( array_key_exists('name', $loggedIn_user['role']) ? $loggedIn_user['role']['name'] : 'Administrator' ) : 'Administrator';
+
+                    @endphp
+
+                    <x-admin::form.control-group class="mb-2.5">
+                        <x-admin::form.control-group.label class="required text-gray-800 dark:text-white font-medium required">
+                            @lang('blog::app.blog.author')
+                        </x-admin::form.control-group.label>
+
+                        @if( $role != 'Administrator' )
+                        <input type="hidden" name="author_id" id="author_id" value="{{$user_id}}">
+                        <x-admin::form.control-group.control type="text" name="author" rules="required" disabled="disabled" :value="$user_name" :label="trans('blog::app.blog.author')" :placeholder="trans('blog::app.blog.author')">
+                        </x-admin::form.control-group.control>
+                        @else
+                        <x-admin::form.control-group.control type="select" name="author_id" id="author_id" {{-- class="cursor-pointer" --}} rules="required" :value="old('author_id') ?? $blog->author_id" :label="trans('blog::app.blog.author')" {{-- :placeholder="trans('blog::app.blog.author')" --}}>
+                            <!-- Options -->
+                            <option value="">@lang('blog::app.blog.select_author')</option>
+                            @foreach($users as $user)
+                            <option value="{{$user->id}}">{{$user->name}}</option>
+                            @endforeach
+                        </x-admin::form.control-group.control>
+
+                        <x-admin::form.control-group.error control-name="author">
+                        </x-admin::form.control-group.error>
+                        @endif
+                    </x-admin::form.control-group>
+
+                </x-slot:content>
+            </x-admin::accordion>
+
+            <!-- Default Categories -->
+            <x-admin::accordion>
+                <x-slot:header>
+                    <p class="required p-2.5 text-gray-800 dark:text-gray-300 text-base font-semibold">
+                        @lang('blog::app.blog.additional_category')
+                    </p>
+                </x-slot:header>
+
+                <x-slot:content>
+
+                    <!-- Category -->
+                    <x-admin::form.control-group class="mb-2.5">
+
+                        <x-admin::form.control-group.control type="select" name="default_category" id="default_category" {{-- class="cursor-pointer" --}} rules="required" :value="old('default_category') ?? $blog->default_category" :label="trans('blog::app.blog.default_category')">
+                            <!-- Options -->
+                            <option value="">@lang('blog::app.blog.select_category')</option>
+                            @foreach($categories as $category)
+                            <option value="{{$category->id}}" data-slug="{{$category->slug}}" id="{{'default_category'.$category->id}}" {{ $blog->default_category == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                            @endforeach
+                        </x-admin::form.control-group.control>
+
+                        <x-admin::form.control-group.error control-name="default_category">
+                        </x-admin::form.control-group.error>
+                    </x-admin::form.control-group>
+
+                </x-slot:content>
+            </x-admin::accordion>
+
+            <!-- Additional Category -->
+            <x-admin::accordion>
+                <x-slot:header>
+                    <p class="p-2.5 text-gray-800 dark:text-gray-300 text-base font-semibold">
+                        @lang('blog::app.blog.additional_category')
+                    </p>
+                </x-slot:header>
+
+                <x-slot:content>
+
+                    <!-- Status -->
+                    <div class="flex flex-col gap-[12px]">
+                        <x-admin::tree.view input-type="checkbox" name-field="categorys" id-field="id" value-field="id" :items="json_encode($additional_categories)" :value="json_encode(explode(',', $blog->categorys))" behavior="no" :fallback-locale="config('app.fallback_locale')">
+                        </x-admin::tree.view>
+                    </div>
+
+                </x-slot:content>
+            </x-admin::accordion>
+
+            <!-- Tags -->
+            <x-admin::accordion>
+                <x-slot:header>
+                    <p class="required p-2.5 text-gray-800 dark:text-gray-300 text-base font-semibold">
+                        @lang('blog::app.blog.tag_title')
+                    </p>
+                </x-slot:header>
+
+                <x-slot:content>
+                    @foreach ($tags as $tag)
+                    <x-admin::form.control-group class="flex gap-2.5 !mb-0 p-1.5">
+                        <x-admin::form.control-group.control type="checkbox" name="tags[]" :id="$tag->name" :value="$tag->id" rules="required" :for="$tag->name" :label="trans('blog::app.blog.tags')" :checked="in_array($tag->id, explode(',', $blog->tags))">
+                        </x-admin::form.control-group.control>
+
+                        <x-admin::form.control-group.label :for="$tag->name" class="!text-sm !text-gray-600 dark:!text-gray-300 font-semibold cursor-pointer">
+                            {{ $tag->name }}
+                        </x-admin::form.control-group.label>
+                    </x-admin::form.control-group>
+                    @endforeach
+
+                    <x-admin::form.control-group.error control-name="tags[]">
+                    </x-admin::form.control-group.error>
+                </x-slot:content>
+            </x-admin::accordion>
+
+            {!! view_render_event('admin.blogs.edit.after', ['blogs' => $blog]) !!}
+
+        </div>
         </div>
 
     </x-admin::form>

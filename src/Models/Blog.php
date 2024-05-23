@@ -16,10 +16,7 @@ class Blog extends Model implements BlogContract
     protected $table = 'blogs';
 
     protected $fillable = [
-        'name',
         'slug',
-        'short_description',
-        'description',
         'channels',
         'default_category',
         'author',
@@ -28,11 +25,7 @@ class Blog extends Model implements BlogContract
         'tags',
         'src',
         'status',
-        'locale',
         'allow_comments',
-        'meta_title',
-        'meta_description',
-        'meta_keywords',
         'published_at'
     ];
 
