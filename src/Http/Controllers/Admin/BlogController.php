@@ -10,7 +10,7 @@ use Webbycrown\BlogBagisto\Datagrids\BlogDataGrid;
 use Webbycrown\BlogBagisto\Models\Category;
 use Webbycrown\BlogBagisto\Models\Tag;
 use Webbycrown\BlogBagisto\Models\Blog;
-use Webbycrown\BlogBagisto\Models\BlogTranslations;
+use Webbycrown\BlogBagisto\Models\BlogTranslation;
 use Webbycrown\BlogBagisto\Repositories\BlogRepository;
 use Webkul\User\Models\Admin;
 use Webbycrown\BlogBagisto\Http\Requests\BlogRequest;
@@ -87,22 +87,34 @@ class BlogController extends Controller
         $data = $blogRequest->all();
         $locale = app()->getLocale();
 
-        // Save main blog data
-        $blog = $this->blogRepository->create($data);
+        // Save     
+        $data = request()->all();
 
-        // Save translations for the current locale
-        BlogTranslations::create([
-            'blog_id' => $blog->id,
-            'locale' => $locale,
-            'name' => $data['name'][$locale],
-            'short_description' => $data['short_description'][$locale],
-            'description' => $data['description'][$locale],
-            'meta_title' => $data['meta_title'][$locale],
-            'meta_description' => $data['meta_description'][$locale],
-            'meta_keywords' => $data['meta_keywords'][$locale],
-        ]);
+        if (array_key_exists('locale', $data) &&  is_array($data['locale'])) {
+            $data['locale'] = implode(',', $data['locale']);
+        }
 
-        session()->flash('success', trans('admin::app.response.create-success', ['name' => 'Blog']));
+        if (array_key_exists('tags', $data) &&  is_array($data['tags'])) {
+            $data['tags'] = implode(',', $data['tags']);
+        }
+
+        if (array_key_exists('categorys', $data) && is_array($data['categorys'])) {
+            $data['categorys'] = implode(',', $data['categorys']);
+        }
+
+        $data['author'] = '';
+        if (is_array($data) && array_key_exists('author_id', $data) && isset($data['author_id']) && (int)$data['author_id'] > 0) {
+            $author_data = Admin::where('id', $data['author_id'])->first();
+            $data['author'] = ( $author_data && !empty($author_data) ) ? $author_data->name : '';
+        }
+
+        $result = $this->blogRepository->save($data);
+
+        if ($result) {
+            session()->flash('success', trans('admin::app.response.create-success', ['name' => 'Blog']));
+        } else {
+            session()->flash('success', trans('blog::app.blog.created-fault'));
+        }    
 
         return redirect()->route($this->_config['redirect']);
     }
@@ -122,7 +134,7 @@ class BlogController extends Controller
 
         // Update translations
         foreach ($data['locales'] as $locale) {
-            $translation = BlogTranslations::where('blog_id', $id)->where('locale', $locale)->first();
+            $translation = BlogTranslation::where('blog_id', $id)->where('locale', $locale)->first();
             if ($translation) {
                 $translation->update([
                     'name' => $data['name'][$locale],
@@ -133,7 +145,7 @@ class BlogController extends Controller
                     'meta_keywords' => $data['meta_keywords'][$locale],
                 ]);
             } else {
-                BlogTranslations::create([
+                BlogTranslation::create([
                     'blog_id' => $id,
                     'locale' => $locale,
                     'name' => $data['name'][$locale],

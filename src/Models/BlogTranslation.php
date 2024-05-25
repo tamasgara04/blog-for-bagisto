@@ -4,7 +4,7 @@ namespace Webbycrown\BlogBagisto\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BlogTranslations extends Model
+class BlogTranslation extends Model
 {
     // Specify the table associated with the model
     protected $table = 'blog_translations';

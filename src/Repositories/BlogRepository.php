@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Webbycrown\BlogBagisto\Models\Category;
-use Webbycrown\BlogBagisto\Models\BlogTranslations;
+use Webbycrown\BlogBagisto\Models\BlogTranslation;
 use Webkul\Core\Eloquent\Repository;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Str;
@@ -38,6 +38,10 @@ class BlogRepository extends Repository
         // Extract translatable fields from the data
         $translatableFields = Arr::only($data, ['name', 'short_description', 'description', 'meta_title', 'meta_description', 'meta_keywords']);
 
+        if (array_key_exists('src', $data)) {
+            unset($data['src']);
+        }
+
         // Create the blog
         $blog = $this->create(Arr::except($data, array_keys($translatableFields)));
 
@@ -66,6 +70,10 @@ class BlogRepository extends Repository
         // Extract translatable fields from the data
         $translatableFields = Arr::only($data, ['name', 'short_description', 'description', 'meta_title', 'meta_description', 'meta_keywords']);
 
+        if (array_key_exists('src', $data)) {
+            unset($data['src']);
+        }
+
         // Update the blog
         $blog = $this->update(Arr::except($data, array_keys($translatableFields)), $id);
 
@@ -89,10 +97,19 @@ class BlogRepository extends Repository
      */
     protected function saveTranslations($blog, $translations)
     {
-        foreach ($translations as $locale => $fields) {
-            $translation = BlogTranslations::firstOrNew(['blog_id' => $blog->id, 'locale' => $locale]);
-            $translation->fill($fields)->save();
+        $translation = BlogTranslation::where('blog_id', $blog->id)->where('locale', core()->getRequestedLocaleCode())->first();
+        if (!$translation) {
+            $translation = new BlogTranslation();
+            $translation->blog_id = $blog->id;
+            $translation->locale = core()->getRequestedLocaleCode();
         }
+        $translation->name = $translations['name'];
+        $translation->short_description = $translations['short_description'];
+        $translation->description = $translations['description'];
+        $translation->meta_title = $translations['meta_title'];
+        $translation->meta_description = $translations['meta_description'];
+        $translation->meta_keywords = $translations['meta_keywords'];
+        $translation->save();
     }
 
     /**

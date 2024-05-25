@@ -25,21 +25,24 @@
 
         <div class="flex gap-4 justify-between items-center max-sm:flex-wrap">
             <p class="text-xl text-gray-800 dark:text-white font-bold">
-                @lang('blog::app.blog.add-title')
+            @lang('blog::app.blog.add-title')
             </p>
 
             <div class="flex gap-x-2.5 items-center">
-                <!-- Cancel Button -->
-                <a href="{{ route('admin.blog.index') }}" class="transparent-button hover:bg-gray-200 dark:hover:bg-gray-800 dark:text-white ">
-                    @lang('admin::app.catalog.categories.create.back-btn')
-                </a>
+            <!-- Cancel Button -->
+            <a href="{{ route('admin.blog.index') }}" class="transparent-button hover:bg-gray-200 dark:hover:bg-gray-800 dark:text-white ">
+                @lang('admin::app.catalog.categories.create.back-btn')
+            </a>
 
-                <!-- Save Button -->
-                <button type="submit" class="primary-button">
-                    @lang('blog::app.blog.create-btn-title')
-                </button>
+            <!-- Save Button -->
+            <button type="submit" class="primary-button">
+                @lang('blog::app.blog.create-btn-title')
+            </button>
             </div>
         </div>
+        <!-- Locales -->
+        <x-admin::form.control-group.control type="hidden" name="locale" value="{{ app()->getLocale() }}">
+        </x-admin::form.control-group.control>
 
         <!-- Full Pannel -->
         <div class="flex gap-2.5 mt-3.5 max-xl:flex-wrap">
@@ -336,6 +339,16 @@
                     </x-slot:header>
 
                     <x-slot:content>
+                        @php
+                        $selectedTags = '';
+                        foreach ($tags as $tag) {
+                        $selectedTags .= $tag->id . ',';
+                        }
+                        $selectedTags = rtrim($selectedTags, ',');
+                        @endphp
+
+                        <input type="hidden" name="tags" value="{{ $selectedTags }}">
+
                         @foreach ($tags as $tag)
                         <x-admin::form.control-group class="flex gap-2.5 !mb-0 p-1.5">
                             <x-admin::form.control-group.control type="checkbox" name="tags[]" :id="$tag->name" :value="$tag->id" rules="required" :for="$tag->name" :label="trans('blog::app.blog.tags')">
