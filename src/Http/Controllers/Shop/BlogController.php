@@ -117,7 +117,7 @@ class BlogController extends Controller
 
         $blog_id = ( $blog && !empty($blog) && !is_null($blog) ) ? (int)$blog->id : 0;
 
-        $blog_tags = Tag::whereIn('id', explode(',',$blog->tags))->get();
+        $blog_tags = Tag::whereIn('id', json_decode($blog->tags, true))->get();
 
         $paginate = $this->getConfigByKey('blog_post_maximum_related');
         $paginate = ( isset($paginate) && !empty($paginate) && is_null($paginate) ) ? (int)$paginate : 4;
@@ -175,18 +175,16 @@ class BlogController extends Controller
 
     public function getTagsWithCount()
     {
-        $blogTags = Blog::select('*')->get()->pluck('tags')->toarray();
-        $allBlogTags_arr = explode(',', implode(',', $blogTags));
-        $allBlogTags_arr = ( !empty($allBlogTags_arr) && count($allBlogTags_arr) > 0 ) ? $allBlogTags_arr : array();
-        $allBlogTags_arr_el_count = array_count_values($allBlogTags_arr);
-        $tags = Tag::where('status', 1)->get()->each(function ($item) use ($allBlogTags_arr, $allBlogTags_arr_el_count) {
-            $item->count = 0;
-            $tag_id = ( $item && isset($item->id) && !empty($item->id) && !is_null($item->id) ) ? (int)$item->id : 0;
-            if (count($allBlogTags_arr_el_count) > 0 && (int)$tag_id > 0) {
-                $item->count = ( array_key_exists($tag_id, $allBlogTags_arr_el_count) ) ? (int)$allBlogTags_arr_el_count[$tag_id] : 0;
-            }
+        $blogTags = Blog::all()->flatMap(function ($blog) {
+            return json_decode($blog->tags);
         });
-
+    
+        $allBlogTags_arr_el_count = array_count_values($blogTags->toArray());
+    
+        $tags = Tag::where('status', 1)->get()->each(function ($item) use ($allBlogTags_arr_el_count) {
+            $item->count = $allBlogTags_arr_el_count[$item->id] ?? 0;
+        });
+    
         return $tags;
     }
 

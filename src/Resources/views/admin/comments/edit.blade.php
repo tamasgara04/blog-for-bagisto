@@ -77,7 +77,7 @@
                         <v-field
                             type="text"
                             name="post"
-                            value="{{ old('post') ?? $comment->blog->name }}"
+                            value="{{ old('post') ?? $comment->blog->translation($currentLocale->code)->name }}"
                             label="{{ trans('blog::app.comment.post') }}"
                             rules="required"
                             v-slot="{ field }"

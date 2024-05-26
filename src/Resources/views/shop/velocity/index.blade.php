@@ -12,6 +12,14 @@
     <meta name="keywords" content="{{ $blog_seo_meta_description ?? ( $channel->home_seo['meta_keywords'] ?? '' ) }}" />
 @endPush
 
+@php
+$channels = core()->getAllChannels();
+
+$currentChannel = core()->getRequestedChannel();
+
+$currentLocale = core()->getRequestedLocale();
+@endphp
+
 <x-shop::layouts>
     {{-- Page Title --}}
     <x-slot:title>
@@ -51,7 +59,7 @@
                                                                     class="card-img-top">
                                                                 </div>
                                                                 <div class="card-body">
-                                                                    <h2 class="card-title"><a href="{{route('shop.article.view',[$blog->category->slug . '/' . $blog->slug])}}">{{ $blog->name }}</a></h2>
+                                                                    <h2 class="card-title"><a href="{{route('shop.article.view',[$blog->category->slug . '/' . $blog->slug])}}">{{ $blog->translation($currentLocale->code)->name }}</a></h2>
                                                                     <div class="post-meta">
                                                                         <p>
                                                                             {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $blog->created_at)->format('M j, Y') }} by
@@ -74,7 +82,7 @@
                                                                     @endif
 
                                                                     <div class="card-text text-justify">
-                                                                        {!! $blog->short_description !!}
+                                                                        {!! $blog->translation($currentLocale->code)->short_description !!}
                                                                     </div>
                                                                 </div>
                                                                 <div class="card-footer">

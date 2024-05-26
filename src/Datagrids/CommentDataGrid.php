@@ -8,6 +8,7 @@ use Webkul\DataGrid\DataGrid;
 use Webbycrown\BlogBagisto\Models\Category;
 use Webbycrown\BlogBagisto\Models\Tag;
 use Webbycrown\BlogBagisto\Models\Blog;
+use Webbycrown\BlogBagisto\Models\BlogTranslation;
 
 class CommentDataGrid extends DataGrid
 {
@@ -59,7 +60,8 @@ class CommentDataGrid extends DataGrid
             'filterable' => false,
             'closure'    => function ($value) {
                 $post = Blog::where('id', $value->post)->first();
-                $post_name = ( $post && isset($post->name) && !empty($post->name) && !is_null($post->name) ) ? $post->name : '-';
+                $post_translation = BlogTranslation::where('blog_id', $value->post)->where('locale', app()->getLocale())->first();
+                $post_name = $post_translation->name;
                 return $post_name;
             },
         ]);

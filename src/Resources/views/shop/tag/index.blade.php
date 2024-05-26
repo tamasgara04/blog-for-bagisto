@@ -12,6 +12,14 @@ $channel = core()->getCurrentChannel();
 <meta name="keywords" content="{{ $tag->meta_keywords ?? ( $blog_seo_meta_description ?? ( $channel->home_seo['meta_keywords'] ?? '' ) ) }}" />
 @endPush
 
+@php
+$channels = core()->getAllChannels();
+
+$currentChannel = core()->getRequestedChannel();
+
+$currentLocale = core()->getRequestedLocale();
+@endphp
+
 <x-shop::layouts>
     {{-- Page Title --}}
     <x-slot:title>
@@ -59,7 +67,7 @@ $channel = core()->getCurrentChannel();
                                                             </div>
                                                             <div class="card-body">
                                                                 <h2 class="card-title">
-                                                                    <a href="{{ route('shop.article.view', [$blog->category->slug . '/' . $blog->slug]) }}">{{ $blog->name }}</a>
+                                                                    <a href="{{ route('shop.article.view', [$blog->category->slug . '/' . $blog->slug]) }}">{{ $blog->translation($currentLocale->code)->name }}</a>
                                                                 </h2>
                                                                 <div class="post-meta">
                                                                     <p>
@@ -83,7 +91,7 @@ $channel = core()->getCurrentChannel();
                                                                 @endif
 
                                                                 <div class="card-text text-justify">
-                                                                    {!! $blog->short_description !!}
+                                                                    {!! $blog->translation($currentLocale->code)->short_description !!}
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer">

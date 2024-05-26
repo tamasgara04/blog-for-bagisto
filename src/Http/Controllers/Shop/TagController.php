@@ -52,7 +52,10 @@ class TagController extends Controller
         $paginate = app('Webbycrown\BlogBagisto\Http\Controllers\Shop\BlogController')->getConfigByKey('blog_post_per_page');
         $paginate = ( isset($paginate) && !empty($paginate) && is_null($paginate) ) ? (int)$paginate : 9;
 
-        $blogs = Blog::orderBy('id', 'desc')->where('status', 1)->whereRaw('FIND_IN_SET(?, tags)', [$tag_id])->paginate($paginate);
+        $blogs = Blog::orderBy('id', 'desc')
+        ->where('status', 1)
+        ->whereJsonContains('tags', (string)$tag_id)
+        ->paginate($paginate);
 
         $categories = Category::where('status', 1)->get();
 
