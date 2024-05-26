@@ -2,7 +2,7 @@
 
 namespace Webbycrown\BlogBagisto\Models;
 
-use Astrotomic\Translatable\Model;
+use Astrotomic\Translatable\Model as TranslatableModel;
 use Illuminate\Database\Eloquent\Model;
 
 class BlogTranslation extends Model

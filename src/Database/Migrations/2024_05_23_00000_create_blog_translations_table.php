@@ -9,7 +9,7 @@ class CreateBlogTranslationsTable extends Migration
     {
         Schema::create('blog_translations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('blog_id')->unsigned();
+            $table->foreignId('blog_id');
             $table->string('locale')->index();
 
             // Translatable attributes
