@@ -3,6 +3,7 @@
 namespace Webbycrown\BlogBagisto\Datagrids;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use Webkul\DataGrid\DataGrid;
 use Webbycrown\BlogBagisto\Models\Category;
 use Webbycrown\BlogBagisto\Models\Tag;
@@ -91,7 +92,7 @@ class BlogDataGrid extends DataGrid
     public function prepareColumns()
     {
         $this->addColumn([
-            'index' => 'blogs.id',
+            'index' => 'id',
             'label' => trans('blog::app.datagrid.id'),
             'type' => 'integer',
             'searchable' => false,
@@ -100,21 +101,16 @@ class BlogDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index' => 'blog_translations.name',
+            'index' => 'name',
             'label' => trans('blog::app.datagrid.name'),
             'type' => 'string',
             'searchable' => true,
             'sortable' => true,
             'filterable' => true,
             'closure' => function ($row) {
-                // Get the current locale
-                $locale = App::getLocale();
-        
-                // Find the translation for the current locale
-                $translation = $row->translations->firstWhere('locale', $locale);
-        
-                // Return the name of the translation, or a default value if the translation doesn't exist
-                return $translation ? $translation->name : 'No translation';
+            $locale = App::getLocale();
+            $translation = DB::table('blog_translations')->where('blog_id', $row->id)->where('locale', $locale)->first();
+            return $translation ? $translation->name : 'No translation';
             },
         ]);
 
@@ -143,12 +139,12 @@ class BlogDataGrid extends DataGrid
             'sortable' => true,
             'filterable' => true,
             'closure' => function ($value) {
-                $tags = '-';
-                $tags_ids = array_values(array_unique(explode(',', $value->tags)));
-                if (is_array($tags_ids) && !empty($tags_ids)) {
-                    $tags = Tag::whereIn('id', $tags_ids)->pluck('name')->implode(', ');
-                }
-                return $tags ?: '-';
+            $tags = '-';
+            $tags_ids = json_decode($value->tags);
+            if (is_array($tags_ids) && !empty($tags_ids)) {
+                $tags = Tag::whereIn('id', $tags_ids)->pluck('name')->implode(', ');
+            }
+            return $tags ?: '-';
             },
         ]);
 

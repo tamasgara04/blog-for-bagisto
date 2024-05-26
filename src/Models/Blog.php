@@ -61,7 +61,7 @@ class Blog extends Model implements BlogContract
      */
     public function getSrcUrlAttribute()
     {
-        if (! $this->src) {
+        if (!$this->src) {
             return;
         }
 
@@ -71,12 +71,11 @@ class Blog extends Model implements BlogContract
     public function getAssignCategorysAttribute()
     {
         $categorys = array();
-        $categories_ids = array_values( array_unique( array_merge( explode( ',', $this->default_category ), explode( ',', $this->categorys ) ) ) );
-        if ( is_array($categories_ids) && !empty($categories_ids) && count($categories_ids) > 0 ) {
+        $categories_ids = array_values(array_unique(array_merge(explode(',', $this->default_category), explode(',', $this->categorys))));
+        if (is_array($categories_ids) && !empty($categories_ids) && count($categories_ids) > 0) {
             $categories = Category::whereIn('id', $categories_ids)->get();
-            $categorys = ( !empty($categories) && count($categories) > 0 ) ? $categories : array();
+            $categorys = (!empty($categories) && count($categories) > 0) ? $categories : array();
         }
         return $categorys;
     }
-
 }
