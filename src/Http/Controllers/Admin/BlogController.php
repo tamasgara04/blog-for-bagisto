@@ -131,33 +131,7 @@ class BlogController extends Controller
 
         // Update main blog data
         $blog = $this->blogRepository->updateItem($data, $id);
-
-        // Update translations
-        foreach ($data['locales'] as $locale) {
-            $translation = BlogTranslation::where('blog_id', $id)->where('locale', $locale)->first();
-            if ($translation) {
-                $translation->update([
-                    'name' => $data['name'][$locale],
-                    'short_description' => $data['short_description'][$locale],
-                    'description' => $data['description'][$locale],
-                    'meta_title' => $data['meta_title'][$locale],
-                    'meta_description' => $data['meta_description'][$locale],
-                    'meta_keywords' => $data['meta_keywords'][$locale],
-                ]);
-            } else {
-                BlogTranslation::create([
-                    'blog_id' => $id,
-                    'locale' => $locale,
-                    'name' => $data['name'][$locale],
-                    'short_description' => $data['short_description'][$locale],
-                    'description' => $data['description'][$locale],
-                    'meta_title' => $data['meta_title'][$locale],
-                    'meta_description' => $data['meta_description'][$locale],
-                    'meta_keywords' => $data['meta_keywords'][$locale],
-                ]);
-            }
-        }
-
+        
         session()->flash('success', trans('admin::app.catalog.attributes.families.index.datagrid.update-success', ['name' => 'Blog']));
 
         return redirect()->route($this->_config['redirect']);
