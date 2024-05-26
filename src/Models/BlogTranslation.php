@@ -2,6 +2,7 @@
 
 namespace Webbycrown\BlogBagisto\Models;
 
+use Astrotomic\Translatable\Model;
 use Illuminate\Database\Eloquent\Model;
 
 class BlogTranslation extends Model
@@ -11,8 +12,6 @@ class BlogTranslation extends Model
 
     // Define the fillable attributes for mass assignment
     protected $fillable = [
-        'blog_id',
-        'locale',
         'name',
         'short_description',
         'description',
@@ -22,7 +21,7 @@ class BlogTranslation extends Model
     ];
 
     // Indicates if the model should be timestamped
-    public $timestamps = true;
+    public $timestamps = false;
 
     /**
      * Get the blog that owns the translation.

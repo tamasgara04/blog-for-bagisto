@@ -111,7 +111,7 @@ class BlogController extends Controller
         $result = $this->blogRepository->save($data);
 
         if ($result) {
-            session()->flash('success', trans('admin::app.response.create-success', ['name' => 'Blog']));
+            session()->flash('success', trans('blog::app.blog.create-success', ['name' => 'Blog']));
         } else {
             session()->flash('success', trans('blog::app.blog.created-fault'));
         }    

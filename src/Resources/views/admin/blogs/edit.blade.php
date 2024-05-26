@@ -161,7 +161,7 @@
                             @lang('blog::app.blog.short_description')
                         </x-admin::form.control-group.label>
 
-                        <x-admin::form.control-group.control type="textarea" name="short_description" id="short_description" rules="required" :value="old('short_description')" :label="trans('blog::app.blog.short_description')" :placeholder="trans('blog::app.blog.short_description')">
+                        <x-admin::form.control-group.control type="textarea" name="short_description" id="short_description" rules="required" :value="$blog->translate(app()->getLocale())->short_description" :label="trans('blog::app.blog.short_description')" :placeholder="trans('blog::app.blog.short_description')">
                         </x-admin::form.control-group.control>
 
                         <x-admin::form.control-group.error control-name="short_description"></x-admin::form.control-group.error>

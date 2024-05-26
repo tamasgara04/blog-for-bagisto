@@ -8,12 +8,14 @@ use Webbycrown\BlogBagisto\Contracts\Blog as BlogContract;
 use Webkul\Core\Models\ChannelProxy;
 use Illuminate\Support\Facades\Storage;
 use Webbycrown\BlogBagisto\Models\Category;
+use Astrotomic\Translatable\Translatable;
 
 class Blog extends Model implements BlogContract
 {
-    use HasFactory;
+    use HasFactory, Translatable;
 
     protected $table = 'blogs';
+    public $translatedAttributes = ['name', 'short_description', 'description', 'meta_title', 'meta_description', 'meta_keywords'];
 
     protected $fillable = [
         'slug',
