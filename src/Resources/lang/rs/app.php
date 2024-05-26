@@ -121,6 +121,7 @@ return [
         'meta_description'              => 'Meta opis',
         'meta_keywords'                 => 'Meta ključne reči',
         'create-success'                => 'Blog je uspešno kreiran',
+        'update-success'                => 'Blog je uspešno ažuriran',
         'created-fault'                 => 'Došlo je do greške prilikom kreiranja bloga.',
         'updated-fault'                 => 'Došlo je do greške prilikom ažuriranja bloga.',
         'delete-success'                => 'Blog je uspešno obrisan',

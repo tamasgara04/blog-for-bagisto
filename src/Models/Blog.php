@@ -8,11 +8,11 @@ use Webbycrown\BlogBagisto\Contracts\Blog as BlogContract;
 use Webkul\Core\Models\ChannelProxy;
 use Illuminate\Support\Facades\Storage;
 use Webbycrown\BlogBagisto\Models\Category;
+use Webbycrown\BlogBagisto\Models\BlogTranslation;
 use Astrotomic\Translatable\Translatable;
 
 class Blog extends Model implements BlogContract
 {
-    use HasFactory, Translatable;
 
     protected $table = 'blogs';
     public $translatedAttributes = ['name', 'short_description', 'description', 'meta_title', 'meta_description', 'meta_keywords'];
@@ -68,14 +68,32 @@ class Blog extends Model implements BlogContract
         return Storage::url($this->src);
     }
 
-    public function getAssignCategorysAttribute()
+    public function getAssignedCategoriesAttribute()
     {
-        $categorys = array();
-        $categories_ids = array_values(array_unique(array_merge(explode(',', $this->default_category), explode(',', $this->categorys))));
-        if (is_array($categories_ids) && !empty($categories_ids) && count($categories_ids) > 0) {
-            $categories = Category::whereIn('id', $categories_ids)->get();
+        $categories = array();
+        $categoriesIds = array_values(array_unique(array_merge(explode(',', $this->default_category), explode(',', $this->categorys))));
+        if (is_array($categoriesIds) && !empty($categoriesIds) && count($categoriesIds) > 0) {
+            $categories = Category::whereIn('id', $categoriesIds)->get();
             $categorys = (!empty($categories) && count($categories) > 0) ? $categories : array();
         }
         return $categorys;
+    }
+
+    public function translation($locale)
+    {
+        // Try to get the translation for the given locale
+        $translation = $this->translations->where('locale', $locale)->first();
+
+        // If there's no translation for the given locale, use the fallback locale
+        if (!$translation) {
+            $fallbackLocale = config('app.fallback_locale');
+            $translation = $this->translations->where('locale', $fallbackLocale)->first();
+        }
+
+        return $translation;
+    }
+    public function translations()
+    {
+        return $this->hasMany(BlogTranslation::class);
     }
 }

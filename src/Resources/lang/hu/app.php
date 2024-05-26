@@ -121,6 +121,7 @@ return [
         'meta_description'              => 'Meta Leírás',
         'meta_keywords'                 => 'Meta Kulcsszavak',
         'create-success'                => 'Blog sikeresen létrehozva',
+        'update-success'                => 'Blog sikeresen frissítve',
         'created-fault'                 => 'Hiba történt a blog létrehozása közben.',
         'updated-fault'                 => 'Hiba történt a blog frissítése közben.',
         'delete-success'                => 'Blog sikeresen törölve',

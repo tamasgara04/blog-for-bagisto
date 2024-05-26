@@ -132,7 +132,7 @@ class BlogController extends Controller
         // Update main blog data
         $blog = $this->blogRepository->updateItem($data, $id);
         
-        session()->flash('success', trans('admin::app.catalog.attributes.families.index.datagrid.update-success', ['name' => 'Blog']));
+        session()->flash('success', trans('blog::app.blog.update-success', ['name' => 'Blog']));
 
         return redirect()->route($this->_config['redirect']);
     }
@@ -179,12 +179,12 @@ class BlogController extends Controller
         try {
             $this->blogRepository->delete($id);
 
-            return response()->json(['message' => trans('admin::app.response.delete-success', ['name' => 'Blog'])]);
+            return response()->json(['message' => trans('blog:app.blog.delete-success', ['name' => 'Blog'])]);
         } catch (\Exception $e) {
             report($e);
         }
 
-        return response()->json(['message' => trans('admin::app.response.delete-failed', ['name' => 'Blog'])], 500);
+        return response()->json(['message' => trans('blog:app.blog.delete-failed', ['name' => 'Blog'])], 500);
     }
 
     /**
@@ -211,7 +211,7 @@ class BlogController extends Controller
             }
 
             if (!$suppressFlash) {
-                session()->flash('success', trans('admin::app.datagrid.mass-ops.delete-success', ['resource' => 'Blog']));
+                session()->flash('success', trans('blog:app.blog.delete-success', ['resource' => 'Blog']));
             } else {
                 session()->flash('info', trans('admin::app.datagrid.mass-ops.partial-action', ['resource' => 'Blog']));
             }

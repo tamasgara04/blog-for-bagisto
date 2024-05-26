@@ -121,6 +121,7 @@ return [
         'meta_description'              => 'Meta Description',
         'meta_keywords'                 => 'Meta Keywords',
         'create-success'                => 'Blog created successfully',
+        'update-success'                => 'Blog updated successfully',
         'created-fault'                 => 'An error occurred while creating a blog.',
         'updated-fault'                 => 'An error occurred while updating the blog.',
         'delete-success'                => 'Blog deleted successfully',
