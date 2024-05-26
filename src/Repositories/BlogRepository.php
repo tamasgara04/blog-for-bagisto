@@ -38,15 +38,11 @@ class BlogRepository extends Repository
         // Extract translatable fields from the data
         $translatableFields = Arr::only($data, ['name', 'short_description', 'description', 'meta_title', 'meta_description', 'meta_keywords']);
 
-        if (array_key_exists('src', $data)) {
-            unset($data['src']);
-        }
-
         // Create the blog
         $blog = $this->create(Arr::except($data, array_keys($translatableFields)));
 
         // Save translations
-        $this->saveTranslations($blog, $translatableFields);
+        $this->saveTranslations($blog, $translatableFields, $data['locale']);
 
         // Handle image upload
         $this->uploadImages($data, $blog);
@@ -70,15 +66,11 @@ class BlogRepository extends Repository
         // Extract translatable fields from the data
         $translatableFields = Arr::only($data, ['name', 'short_description', 'description', 'meta_title', 'meta_description', 'meta_keywords']);
 
-        if (array_key_exists('src', $data)) {
-            unset($data['src']);
-        }
-
         // Update the blog
         $blog = $this->update(Arr::except($data, array_keys($translatableFields)), $id);
 
         // Save translations
-        $this->saveTranslations($blog, $translatableFields);
+        $this->saveTranslations($blog, $translatableFields, $data['locale']);
 
         // Handle image upload
         $this->uploadImages($data, $blog);
@@ -95,13 +87,13 @@ class BlogRepository extends Repository
      * @param  array  $translations
      * @return void
      */
-    protected function saveTranslations($blog, $translations)
+    protected function saveTranslations($blog, $translations, $locale)
     {
-        $translation = BlogTranslation::where('blog_id', $blog->id)->where('locale', core()->getRequestedLocaleCode())->first();
+        $translation = BlogTranslation::where('blog_id', $blog->id)->where('locale', $locale)->first();
         if (!$translation) {
             $translation = new BlogTranslation();
             $translation->blog_id = $blog->id;
-            $translation->locale = core()->getRequestedLocaleCode();
+            $translation->locale = $locale;
         }
         $translation->name = $translations['name'];
         $translation->short_description = $translations['short_description'];

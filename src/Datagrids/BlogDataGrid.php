@@ -53,7 +53,7 @@ class BlogDataGrid extends DataGrid
         $user_id = $loggedIn_user ? $loggedIn_user->id : 0;
         $role = $loggedIn_user && $loggedIn_user->role ? $loggedIn_user->role->name : 'Administrator';
 
-        $locale = core()->getRequestedLocaleCode();
+        $locale = $this->locale;
 
         $queryBuilder = DB::table('blogs')
             ->leftJoin('blog_translations', function ($join) use ($locale) {
@@ -106,6 +106,16 @@ class BlogDataGrid extends DataGrid
             'searchable' => true,
             'sortable' => true,
             'filterable' => true,
+            'closure' => function ($row) {
+                // Get the current locale
+                $locale = App::getLocale();
+        
+                // Find the translation for the current locale
+                $translation = $row->translations->firstWhere('locale', $locale);
+        
+                // Return the name of the translation, or a default value if the translation doesn't exist
+                return $translation ? $translation->name : 'No translation';
+            },
         ]);
 
         $this->addColumn([

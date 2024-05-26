@@ -112,7 +112,7 @@
                     </p>
 
                     <!-- Locales -->
-                    <x-admin::form.control-group.control type="hidden" name="locale" value="en">
+                    <x-admin::form.control-group.control type="hidden" name="locale" value="{{ $currentLocale->code }}">
                     </x-admin::form.control-group.control>
 
                     <!-- Channel -->
@@ -139,8 +139,8 @@
                             @lang('blog::app.blog.slug')
                         </x-admin::form.control-group.label>
 
-                        <v-field type="text" name="slug" value="{{ old('slug', $blog->translate(app()->getLocale())->slug) }}" label="{{ trans('blog::app.blog.slug') }}" rules="required" v-slot="{ field }">
-                            <input type="text" name="slug" id="slug" v-bind="field" :class="[errors['{{ 'slug' }}'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ trans('blog::app.blog.slug') }}" v-slugify-target:slug="setValues">
+                        <v-field type="text" name="slug" value="{{ old('slug', $blog->slug) }}" label="{{ trans('blog::app.blog.slug') }}" rules="required" v-slot="{ field }">
+                            <input type="text" name="slug" id="slug" v-bind="field" :class="[errors['slug'] ? 'border border-red-600 hover:border-red-600' : '']" class="flex w-full min-h-[39px] py-2 px-3 border rounded-md text-sm text-gray-600 dark:text-gray-300 transition-all hover:border-gray-400 dark:hover:border-gray-400 focus:border-gray-400 dark:focus:border-gray-400 dark:bg-gray-900 dark:border-gray-800" placeholder="{{ trans('blog::app.blog.slug') }}" v-slugify-target:slug="setValues">
                         </v-field>
 
                         <x-admin::form.control-group.error control-name="slug">
