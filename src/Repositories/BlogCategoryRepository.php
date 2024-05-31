@@ -32,19 +32,43 @@ class BlogCategoryRepository extends Repository
     {
         Event::dispatch('admin.blog.categories.create.before', $data);
 
-        $create_data = $data;
+        // Extract translatable fields from the data
+        $translatableFields = Arr::only($data, ['name', 'meta_title', 'meta_description', 'meta_keywords']);
 
-        if ( array_key_exists('image', $create_data) ) {
-            unset($create_data['image']);
+        // Prepare data for creation
+        $create_data = Arr::except($data, array_merge(['image'], array_keys($translatableFields)));
+
+        if (array_key_exists('image', $data)) {
+            unset($data['image']);
         }
 
-        $categories = $this->create($create_data);
+        // Create the category
+        $category = $this->create($create_data);
 
-        $this->uploadImages($data, $categories);
+        // Save translations
+        $this->saveTranslations($category, $translatableFields, $data['locale']);
 
-        Event::dispatch('admin.blog.categories.create.after', $categories);
+        // Handle image upload
+        $this->uploadImages($data, $category);
+
+        Event::dispatch('admin.blog.categories.create.after', $category);
 
         return true;
+    }
+
+    protected function saveTranslations($category, $translations, $locale)
+    {
+        $translation = CategoryTranslation::where('category_id', $category->id)->where('locale', $locale)->first();
+        if (!$translation) {
+            $translation = new CategoryTranslation();
+            $translation->category_id = $category->id;
+            $translation->locale = $locale;
+        }
+        $translation->name = $translations['name'];
+        $translation->meta_title = $translations['meta_title'];
+        $translation->meta_description = $translations['meta_description'];
+        $translation->meta_keywords = $translations['meta_keywords'];
+        $translation->save();
     }
 
     /**
@@ -58,17 +82,26 @@ class BlogCategoryRepository extends Repository
     {
         Event::dispatch('admin.blog.categories.update.before', $id);
 
-        $update_data = $data;
+        // Extract translatable fields from the data
+        $translatableFields = Arr::only($data, ['name', 'meta_title', 'meta_description', 'meta_keywords']);
 
-        if ( array_key_exists('image', $update_data) ) {
-            unset($update_data['image']);
+        // Prepare data for update
+        $update_data = Arr::except($data, array_merge(['image'], array_keys($translatableFields)));
+
+        if (array_key_exists('image', $data)) {
+            unset($data['image']);
         }
 
-        $categories = $this->update($update_data, $id);
+        // Update the category
+        $category = $this->update($update_data, $id);
 
-        $this->uploadImages($data, $categories);
+        // Save translations
+        $this->saveTranslations($category, $translatableFields, $data['locale']);
 
-        Event::dispatch('admin.blog.categories.update.after', $categories);
+        // Handle image upload
+        $this->uploadImages($data, $category);
+
+        Event::dispatch('admin.blog.categories.update.after', $category);
 
         return true;
     }

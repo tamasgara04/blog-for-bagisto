@@ -13,13 +13,27 @@ class Tag extends Model implements TagContract
     protected $table = 'blog_tags';
 
     protected $fillable = [
-        'name',
+        'admin_name',
         'slug',
-        'description',
         'status',
-        'locale',
-        'meta_title',
-        'meta_description',
-        'meta_keywords'
     ];
+
+    public function translation($locale)
+    {
+        // Try to get the translation for the given locale
+        $translation = $this->translations->where('locale', $locale)->first();
+
+        // If there's no translation for the given locale, use the fallback locale
+        if (!$translation) {
+            $fallbackLocale = config('app.fallback_locale');
+            $translation = $this->translations->where('locale', $fallbackLocale)->first();
+        }
+
+        return $translation;
+    }
+
+    public function translations()
+    {
+        return $this->hasMany(TagTranslation::class);
+    }
 }
