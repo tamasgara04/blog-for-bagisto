@@ -55,6 +55,7 @@ class BlogTagRepository extends Repository
             $translation->locale = $locale;
         }
         $translation->name = $translations['name'];
+        $translation->description = $translations['description'];
         $translation->meta_title = $translations['meta_title'];
         $translation->meta_description = $translations['meta_description'];
         $translation->meta_keywords = $translations['meta_keywords'];
