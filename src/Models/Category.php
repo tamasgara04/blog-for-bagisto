@@ -17,14 +17,9 @@ class Category extends Model implements CategoryContract
     protected $fillable = [
         'name',
         'slug',
-        'description',
         'image',
         'status',
         'parent_id',
-        'locale',
-        'meta_title',
-        'meta_description',
-        'meta_keywords',
         'created_at',
         'updated_at'
     ];
@@ -150,6 +145,6 @@ class Category extends Model implements CategoryContract
     }
     public function translations()
     {
-        return $this->hasMany(CategoryTranslation::class, 'category_id');
+        return $this->hasMany(CategoryTranslation::class);
     }
 }
