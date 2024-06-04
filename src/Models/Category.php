@@ -150,6 +150,6 @@ class Category extends Model implements CategoryContract
     }
     public function translations()
     {
-        return $this->hasMany(CategoryTranslation::class);
+        return $this->hasMany(CategoryTranslation::class, 'category_id');
     }
 }
