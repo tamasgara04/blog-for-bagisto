@@ -12,7 +12,7 @@ class CategoryTranslation extends Model implements CategoryContract
 {
     use HasFactory;
 
-    protected $table = 'blog_categories';
+    protected $table = 'blog_categories_translations';
 
     protected $fillable = [
         'name',
