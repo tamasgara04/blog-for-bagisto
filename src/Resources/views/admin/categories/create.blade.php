@@ -41,10 +41,6 @@
             </div>
         </div>
 
-        <!-- Locales -->
-        <x-admin::form.control-group.control type="hidden" name="locale" value="{{ app()->getLocale() }}">
-        </x-admin::form.control-group.control>
-
         <!-- Full Pannel -->
         <div class="flex gap-2.5 mt-3.5 max-xl:flex-wrap">
 
@@ -58,6 +54,10 @@
                     </p>
                     <!-- Channel -->
                     <x-admin::form.control-group.control type="hidden" name="channels" value="1">
+                    </x-admin::form.control-group.control>
+
+                    <!-- Locales -->
+                    <x-admin::form.control-group.control type="hidden" name="locale" value="{{ app()->getLocale() }}">
                     </x-admin::form.control-group.control>
 
                     <!-- Name -->
