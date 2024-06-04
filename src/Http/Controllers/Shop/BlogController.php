@@ -125,7 +125,6 @@ class BlogController extends Controller
         $blog_category_ids = array_merge(explode(',', $blog->default_category), explode(',', $blog->categorys));
 
         $related_blogs = Blog::join('blog_categories_translations', 'blogs.default_category', '=', 'blog_categories_translations.category_id')
-            ->where('blog_categories_translations.locale', app()->getLocale())
             ->orderBy('blogs.id', 'desc')
             ->where('blogs.status', 1)
             ->whereNotIn('blogs.id', [$blog_id]);
