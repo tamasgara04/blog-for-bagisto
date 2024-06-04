@@ -75,7 +75,7 @@ $currentLocale = core()->getRequestedLocale();
                                                                         <div class="post-categories">
                                                                             <p>
                                                                                 @foreach($blog->assign_categorys as $assign_category)
-                                                                                    <a href="{{route('shop.blog.category.index',[$assign_category->slug])}}" class="cat-link">{{$assign_category->name}}</a>
+                                                                                    <a href="{{route('shop.blog.category.index',[$assign_category->slug])}}" class="cat-link">{{$assign_category->translation($currentLocale->code)->name}}</a>
                                                                                 @endforeach
                                                                             </p>
                                                                         </div>
@@ -114,7 +114,7 @@ $currentLocale = core()->getRequestedLocale();
                                                 <ul class="list-group">
                                                     @foreach($categories as $category)
                                                         <li><a href="{{route('shop.blog.category.index',[$category->slug])}}" class="list-group-item list-group-item-action">
-                                                                <span>{{ $category->name }}</span> 
+                                                                <span>{{ $category->translation($currentLocale->code)->name }}</span> 
                                                                 @if( (int)$show_categories_count == 1 )
                                                                     <span class="badge badge-pill badge-primary">{{ $category->assign_blogs }}</span>
                                                                 @endif
@@ -126,7 +126,7 @@ $currentLocale = core()->getRequestedLocale();
                                                     <h3>@lang('blog::app.shop.velocity.tags')</h3> 
                                                     <div class="tag-list">
                                                         @foreach($tags as $tag)
-                                                            <a href="{{route('shop.blog.tag.index',[$tag->slug])}}" role="button" class="btn btn-primary btn-lg">{{ $tag->name }} 
+                                                            <a href="{{route('shop.blog.tag.index',[$tag->slug])}}" role="button" class="btn btn-primary btn-lg">{{ $tag->translation($currentLocale->code)->name }} 
                                                                 @if( (int)$show_tags_count == 1 )
                                                                     <span class="badge badge-light">{{ $tag->count }}</span>
                                                                 @endif

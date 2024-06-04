@@ -357,7 +357,7 @@
                                 <!-- Options -->
                                 <option value="">@lang('blog::app.blog.select_category')</option>
                                 @foreach($categories as $category)
-                                <option value="{{$category->id}}" data-slug="{{$category->slug}}" id="{{'default_category'.$category->id}}" {{ $blog->default_category == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                                <option value="{{$category->id}}" data-slug="{{$category->slug}}" id="{{'default_category'.$category->id}}" {{ $blog->default_category == $category->id ? 'selected' : '' }}>{{$category->translation($currentLocale->code)->name}}</option>
                                 @endforeach
                             </x-admin::form.control-group.control>
 
@@ -398,11 +398,11 @@
                     <x-slot:content>
                         @foreach ($tags as $tag)
                         <x-admin::form.control-group class="flex gap-2.5 !mb-0 p-1.5">
-                            <x-admin::form.control-group.control type="checkbox" name="tags[]" :id="$tag->name" :value="$tag->id" rules="required" :for="$tag->name" :label="trans('blog::app.blog.tags')" :checked="in_array($tag->id, explode(',', $blog->tags))">
+                            <x-admin::form.control-group.control type="checkbox" name="tags[]" :id="$tag->translation($currentLocale->code)->name" :value="$tag->id" rules="required" :for="$tag->translation($currentLocale->code)->name" :label="trans('blog::app.blog.tags')" :checked="in_array($tag->id, explode(',', $blog->tags))">
                             </x-admin::form.control-group.control>
 
-                            <x-admin::form.control-group.label :for="$tag->name" class="!text-sm !text-gray-600 dark:!text-gray-300 font-semibold cursor-pointer">
-                                {{ $tag->name }}
+                            <x-admin::form.control-group.label :for="$tag->translation($currentLocale->code)->name" class="!text-sm !text-gray-600 dark:!text-gray-300 font-semibold cursor-pointer">
+                                {{ $tag->translation($currentLocale->code)->name }}
                             </x-admin::form.control-group.label>
                         </x-admin::form.control-group>
                         @endforeach

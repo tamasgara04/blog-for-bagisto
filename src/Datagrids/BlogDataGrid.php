@@ -125,7 +125,7 @@ class BlogDataGrid extends DataGrid
                 $categories = '-';
                 $categories_ids = array_values(array_unique(array_merge(explode(',', $value->default_category), explode(',', $value->categorys))));
                 if (is_array($categories_ids) && !empty($categories_ids)) {
-                    $categories = Category::whereIn('id', $categories_ids)->pluck('name')->implode(', ');
+                    $categories = Category::whereIn('id', $categories_ids)->pluck('admin_name')->implode(', ');
                 }
                 return $categories ?: '-';
             },
@@ -142,7 +142,7 @@ class BlogDataGrid extends DataGrid
             $tags = '-';
             $tags_ids = json_decode($value->tags);
             if (is_array($tags_ids) && !empty($tags_ids)) {
-                $tags = Tag::whereIn('id', $tags_ids)->pluck('name')->implode(', ');
+                $tags = Tag::whereIn('id', $tags_ids)->pluck('admin_name')->implode(', ');
             }
             return $tags ?: '-';
             },
