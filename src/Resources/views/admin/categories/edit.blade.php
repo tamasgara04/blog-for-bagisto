@@ -14,8 +14,10 @@
     @endPushOnce
 
     @php
-    $currentLocale = core()->getRequestedLocaleCode();
+    $locale = core()->getRequestedLocaleCode();
     $currentLocale = core()->getRequestedLocale();
+    $channels = core()->getAllChannels();
+    $currentChannel = core()->getRequestedChannel();
     @endphp
 
     <!-- Blog Edit Form -->

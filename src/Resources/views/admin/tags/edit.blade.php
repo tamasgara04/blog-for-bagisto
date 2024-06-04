@@ -4,7 +4,9 @@
     </x-slot:title>
 
     @php
+    $locale = core()->getRequestedLocaleCode();
     $currentLocale = core()->getRequestedLocale();
+    $channels = core()->getAllChannels();
     $currentChannel = core()->getRequestedChannel();
     @endphp
 
