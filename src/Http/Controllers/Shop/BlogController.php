@@ -125,21 +125,23 @@ class BlogController extends Controller
         $blog_category_ids = array_merge(explode(',', $blog->default_category), explode(',', $blog->categorys));
 
         $related_blogs = Blog::join('blog_categories_translations', 'blogs.default_category', '=', 'blog_categories_translations.category_id')
+            ->where('blog_categories_translations.locale', app()->getLocale())
             ->orderBy('blogs.id', 'desc')
             ->where('blogs.status', 1)
-            ->whereNotIn('blogs.id', [$blog_id]);
+            ->whereNotIn('blogs.id', [$blog_id])
+            ->orWhere('blogs.default_category', $blog->default_category);
 
         if (is_array($blog_category_ids) && !empty($blog_category_ids) && count($blog_category_ids) > 0) {
             $related_blogs = $related_blogs->whereIn('blogs.default_category', $blog_category_ids)
-                ->where(function ($query) use ($blog_category_ids) {
-                    foreach ($blog_category_ids as $key => $blog_category_id) {
-                        if ($key == 0) {
-                            $query->whereRaw('FIND_IN_SET(?, blogs.categorys)', [$blog_category_id]);
-                        } else {
-                            $query->orWhereRaw('FIND_IN_SET(?, blogs.categorys)', [$blog_category_id]);
-                        }
-                    }
-                });
+            ->where(function ($query) use ($blog_category_ids) {
+                foreach ($blog_category_ids as $key => $blog_category_id) {
+                if ($key == 0) {
+                    $query->whereRaw('FIND_IN_SET(?, blogs.categorys)', [$blog_category_id]);
+                } else {
+                    $query->orWhereRaw('FIND_IN_SET(?, blogs.categorys)', [$blog_category_id]);
+                }
+                }
+            });
         }
 
         $related_blogs = $related_blogs->paginate($paginate);

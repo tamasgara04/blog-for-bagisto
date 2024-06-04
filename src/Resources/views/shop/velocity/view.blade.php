@@ -112,10 +112,10 @@ $currentLocale = core()->getRequestedLocale();
                                         <div class="related-blog-post-item">
                                             <div class="blog-post-box">
                                                 <div class="card mb-5">
-                                                    <div class="blog-grid-img"><img src="{{ '/storage/' . ( ( isset($related_blog->src) && !empty($related_blog->src) && !is_null($related_blog->src) ) ? $related_blog->src : 'placeholder-thumb.jpg' ) }}" alt="{{ $related_blogtranslation($currentLocale->code)->name }}" class="card-img-top">
+                                                    <div class="blog-grid-img"><img src="{{ '/storage/' . ( ( isset($related_blog->src) && !empty($related_blog->src) && !is_null($related_blog->src) ) ? $related_blog->src : 'placeholder-thumb.jpg' ) }}" alt="img" class="card-img-top">
                                                     </div>
                                                     <div class="card-body">
-                                                        <h2 class="card-title"><a href="{{route('shop.article.view',[$related_blog->category->slug . '/' . $related_blog->slug])}}">{{ $related_blog->translation($currentLocale->code)->name }}</a></h2>
+                                                        <h2 class="card-title"><a href="{{route('shop.article.view',[$related_blog->category->slug . '/' . $related_blog->slug])}}">{{ $related_blog->name }}</a></h2>
                                                         <div class="post-meta">
                                                             <p>
                                                                 {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $related_blog->created_at)->format('M j, Y') }} by
@@ -138,7 +138,7 @@ $currentLocale = core()->getRequestedLocale();
                                                         @endif
 
                                                         <div class="card-text text-justify">
-                                                            {!! $related_blogtranslation($currentLocale->code)->short_description !!}
+                                                            {!! $related_blog->short_description !!}
                                                         </div>
                                                     </div>
                                                     <div class="card-footer">
