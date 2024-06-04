@@ -14,7 +14,7 @@
     @endPushOnce
 
     @php
-    $locale = core()->getRequestedLocaleCode();
+    $currentLocale = core()->getRequestedLocaleCode();
     $currentLocale = core()->getRequestedLocale();
     @endphp
 

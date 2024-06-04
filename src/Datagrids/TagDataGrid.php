@@ -81,7 +81,7 @@ class TagDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'name_name',
+            'index'      => 'admin_name',
             'label'      => trans('blog::app.datagrid.name'),
             'type'       => 'string',
             'searchable' => true,

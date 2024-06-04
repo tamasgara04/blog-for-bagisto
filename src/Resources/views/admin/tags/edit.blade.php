@@ -5,6 +5,7 @@
 
     @php
     $currentLocale = core()->getRequestedLocale();
+    $currentChannel = core()->getRequestedChannel();
     @endphp
 
     <!-- Blog Edit Form -->

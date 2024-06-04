@@ -34,7 +34,7 @@ class BlogCategoryRepository extends Repository
         Event::dispatch('admin.blog.categories.create.before', $data);
 
         // Extract translatable fields from the data
-        $translatableFields = Arr::only($data, ['name', 'meta_title', 'meta_description', 'meta_keywords']);
+        $translatableFields = Arr::only($data, ['name', 'description', 'meta_title', 'meta_description', 'meta_keywords']);
 
         // Add name to admin_name
         $data['admin_name'] = $data['name'];
