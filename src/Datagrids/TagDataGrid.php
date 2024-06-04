@@ -48,9 +48,24 @@ class TagDataGrid extends DataGrid
 
     public function prepareQueryBuilder()
     {
-        $queryBuilder = DB::table('blog_tags')->select('id')
-            ->addSelect('id', 'name', 'slug', 'description', 'status', 'meta_title', 'meta_description', 'meta_keywords');;
-
+        $locale = $this->locale;
+    
+        $queryBuilder = DB::table('blog_tags')
+            ->leftJoin('blog_tags_translations', function ($join) use ($locale) {
+                $join->on('blog_tags.id', '=', 'blog_tags_translations.tag_id')
+                     ->where('blog_tags_translations.locale', '=', $locale);
+            })
+            ->select(
+                'blog_tags.id',
+                'blog_tags_translations.name',
+                'blog_tags.slug',
+                'blog_tags_translations.description',
+                'blog_tags.status',
+                'blog_tags_translations.meta_title',
+                'blog_tags_translations.meta_description',
+                'blog_tags_translations.meta_keywords'
+            );
+    
         return $queryBuilder;
     }
 
@@ -66,7 +81,7 @@ class TagDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'name',
+            'index'      => 'name_name',
             'label'      => trans('blog::app.datagrid.name'),
             'type'       => 'string',
             'searchable' => true,

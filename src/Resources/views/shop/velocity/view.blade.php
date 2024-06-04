@@ -75,7 +75,7 @@ $currentLocale = core()->getRequestedLocale();
                                                     <ul class="list-group">
                                                         @foreach($categories as $category)
                                                         <li><a href="{{route('shop.blog.category.index',[$category->slug])}}" class="list-group-item list-group-item-action">
-                                                                <span>{{ $category->name }}</span>
+                                                                <span>{{ $category->translation($currentLocale->code)->name }}</span>
                                                                 @if( (int)$show_categories_count == 1 )
                                                                 <span class="badge badge-pill badge-primary">{{ $category->assign_blogs }}</span>
                                                                 @endif
@@ -87,7 +87,7 @@ $currentLocale = core()->getRequestedLocale();
                                                         <h3>@lang('blog::app.shop.velocity.tags')</h3>
                                                         <div class="tag-list">
                                                             @foreach($tags as $tag)
-                                                            <a href="{{route('shop.blog.tag.index',[$tag->slug])}}" role="button" class="btn btn-primary btn-lg">{{ $tag->name }}
+                                                            <a href="{{route('shop.blog.tag.index',[$tag->slug])}}" role="button" class="btn btn-primary btn-lg">{{ $tag->translation($currentLocale->code)->name }}
                                                                 @if( (int)$show_tags_count == 1 )
                                                                 <span class="badge badge-light">{{ $tag->count }}</span>
                                                                 @endif
@@ -115,7 +115,7 @@ $currentLocale = core()->getRequestedLocale();
                                                     <div class="blog-grid-img"><img src="{{ '/storage/' . ( ( isset($related_blog->src) && !empty($related_blog->src) && !is_null($related_blog->src) ) ? $related_blog->src : 'placeholder-thumb.jpg' ) }}" alt="{{ $related_blogtranslation($currentLocale->code)->name }}" class="card-img-top">
                                                     </div>
                                                     <div class="card-body">
-                                                        <h2 class="card-title"><a href="{{route('shop.article.view',[$related_blog->category->slug . '/' . $related_blog->slug])}}">{{ $related_blogtranslation($currentLocale->code)->name }}</a></h2>
+                                                        <h2 class="card-title"><a href="{{route('shop.article.view',[$related_blog->category->slug . '/' . $related_blog->slug])}}">{{ $related_blog->translation($currentLocale->code)->name }}</a></h2>
                                                         <div class="post-meta">
                                                             <p>
                                                                 {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $related_blog->created_at)->format('M j, Y') }} by

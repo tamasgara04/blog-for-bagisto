@@ -7,6 +7,9 @@
         $currentLocale = core()->getRequestedLocale();
     @endphp
     
+    <!-- Locales -->
+    <x-admin::form.control-group.control type="hidden" name="locale" value="{{ app()->getLocale() }}">
+        </x-admin::form.control-group.control>
     <!-- Blog Edit Form -->
     <x-admin::form
         :action="route('admin.blog.tag.store')"
@@ -216,7 +219,7 @@
                                 name="meta_description"
                                 id="meta_description"
                                 rules="required"
-                                :value="old('meta_description')"
+                                :value="old('meta_description', $tag->translation($currentLocale->code)->meta_description)"
                                 :label="trans('blog::app.blog.meta_description')"
                                 :placeholder="trans('blog::app.blog.meta_description')"
                             >

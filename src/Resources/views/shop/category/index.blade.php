@@ -43,7 +43,7 @@ $currentLocale = core()->getRequestedLocale();
                                 <!-- <div class="col-lg-12"><h1 class="mb-3 page-title">Our Blog</h1></div> -->
                                 <section class="blog-hero-wrapper">
                                     <div class="blog-hero-image">
-                                        <h1 class="hero-main-title">{{ $category->name }}</h1>
+                                        <h1 class="hero-main-title">{{ $category->translation($currentLocale->code)->name }}</h1>
                                         <img
                                         src="{{ '/storage/' . ( ( isset($category->image) && !empty($category->image) && !is_null($category->image) ) ? $category->image : 'placeholder-banner.jpg' ) }}"
                                         alt="Blog Image"
@@ -54,7 +54,7 @@ $currentLocale = core()->getRequestedLocale();
 
                                     <div class="column-12">
                                         <div class="text-justify blog-post-content">
-                                            {!! $category->description !!}
+                                            {!! $category->translation($currentLocale->code)->description !!}
                                         </div>
                                     </div>
                                     
@@ -128,7 +128,7 @@ $currentLocale = core()->getRequestedLocale();
                                                 <ul class="list-group">
                                                     @foreach($categories as $category)
                                                         <li><a href="{{route('shop.blog.category.index',[$category->slug])}}" class="list-group-item list-group-item-action">
-                                                                <span>{{ $category->name }}</span> 
+                                                                <span>{{ $category->translation($currentLocale->code)->name }}</span> 
                                                                 @if( (int)$show_categories_count == 1 )
                                                                     <span class="badge badge-pill badge-primary">{{ $category->assign_blogs }}</span>
                                                                 @endif
@@ -140,7 +140,7 @@ $currentLocale = core()->getRequestedLocale();
                                                     <h3>@lang('blog::app.shop.category.tags')</h3> 
                                                     <div class="tag-list">
                                                         @foreach($tags as $tag)
-                                                            <a href="{{route('shop.blog.tag.index',[$tag->slug])}}" role="button" class="btn btn-primary btn-lg">{{ $tag->name }} 
+                                                            <a href="{{route('shop.blog.tag.index',[$tag->slug])}}" role="button" class="btn btn-primary btn-lg">{{ $tag->translation($currentLocale->code)->name }} 
                                                                 @if( (int)$show_tags_count == 1 )
                                                                     <span class="badge badge-light">{{ $tag->count }}</span>
                                                                 @endif

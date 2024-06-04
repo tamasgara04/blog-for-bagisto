@@ -50,9 +50,14 @@ class CategoryDataGrid extends DataGrid
 
     public function prepareQueryBuilder()
     {
+        $currentLocale = app()->getLocale();
+
         $queryBuilder = DB::table('blog_categories')
-            ->select('id')
-            ->addSelect('id', 'name', 'slug', 'status', 'description', 'meta_title', 'meta_description', 'meta_keywords', 'parent_id');
+            ->leftJoin('blog_categories_translations', function ($join) use ($currentLocale) {
+                $join->on('blog_categories.id', '=', 'blog_categories_translations.category_id')
+                    ->where('blog_categories_translations.locale', '=', $currentLocale);
+            })
+            ->select('blog_categories.id', 'blog_categories_translations.name', 'blog_categories.slug', 'blog_categories.status', 'blog_categories_translations.description', 'blog_categories_translations.meta_title', 'blog_categories_translations.meta_description', 'blog_categories_translations.meta_keywords', 'blog_categories.parent_id');
 
         return $queryBuilder;
     }
@@ -69,7 +74,7 @@ class CategoryDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'name',
+            'index'      => 'admin_name',
             'label'      => trans('blog::app.datagrid.name'),
             'type'       => 'string',
             'searchable' => true,
@@ -86,7 +91,7 @@ class CategoryDataGrid extends DataGrid
             'filterable' => true,
             'closure'    => function ($value) {
                 $parent_data = Category::where('id', (int)$value->parent_id)->first();
-                $parent_category_name = ( $parent_data && isset($parent_data->name) && !empty($parent_data->name) && !is_null($parent_data->name) ) ? $parent_data->name : '-';
+                $parent_category_name = ($parent_data && isset($parent_data->name) && !empty($parent_data->name) && !is_null($parent_data->name)) ? $parent_data->name : '-';
                 return $parent_category_name;
             },
         ]);

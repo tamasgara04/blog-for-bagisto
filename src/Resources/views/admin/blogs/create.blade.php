@@ -56,10 +56,6 @@
                         @lang('admin::app.catalog.categories.create.general')
                     </p>
 
-                    <!-- Locales -->
-                    <x-admin::form.control-group.control type="hidden" name="locale" value="en">
-                    </x-admin::form.control-group.control>
-
                     <!-- Channel -->
                     <x-admin::form.control-group.control type="hidden" name="channels" value="1">
                     </x-admin::form.control-group.control>
