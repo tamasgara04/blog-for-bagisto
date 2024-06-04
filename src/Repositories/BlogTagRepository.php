@@ -74,7 +74,7 @@ class BlogTagRepository extends Repository
         Event::dispatch('admin.blog.tags.update.before', $id);
 
         // Extract translatable fields from the data
-        $translatableFields = Arr::only($data, ['name', 'meta_title', 'meta_description', 'meta_keywords']);
+        $translatableFields = Arr::only($data, ['name', 'description', 'meta_title', 'meta_description', 'meta_keywords']);
 
         // Update the tag
         $tag = $this->update(Arr::except($data, array_keys($translatableFields)), $id);

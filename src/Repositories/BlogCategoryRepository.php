@@ -88,7 +88,7 @@ class BlogCategoryRepository extends Repository
         Event::dispatch('admin.blog.categories.update.before', $id);
 
         // Extract translatable fields from the data
-        $translatableFields = Arr::only($data, ['name', 'meta_title', 'meta_description', 'meta_keywords']);
+        $translatableFields = Arr::only($data, ['name', 'description', 'meta_title', 'meta_description', 'meta_keywords']);
 
         // Prepare data for update
         $update_data = Arr::except($data, array_merge(['image'], array_keys($translatableFields)));
