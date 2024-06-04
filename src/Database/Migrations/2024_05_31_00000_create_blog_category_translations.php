@@ -10,7 +10,8 @@ class CreateBlogCategoryTranslations extends Migration
     {
         Schema::create('blog_categories_translations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('locale')->index();
             $table->string('name');
             $table->text('description')->nullable();
