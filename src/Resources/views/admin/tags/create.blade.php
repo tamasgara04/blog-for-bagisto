@@ -219,7 +219,7 @@
                                 name="meta_description"
                                 id="meta_description"
                                 rules="required"
-                                :value="old('meta_description', $tag->translation($currentLocale->code)->meta_description)"
+                                :value="old('meta_description')"
                                 :label="trans('blog::app.blog.meta_description')"
                                 :placeholder="trans('blog::app.blog.meta_description')"
                             >

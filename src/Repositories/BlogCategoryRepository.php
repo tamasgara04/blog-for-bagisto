@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Str;
+use Webbycrown\BlogBagisto\Models\CategoryTranslation;
 
 class BlogCategoryRepository extends Repository
 {
@@ -34,6 +35,9 @@ class BlogCategoryRepository extends Repository
 
         // Extract translatable fields from the data
         $translatableFields = Arr::only($data, ['name', 'meta_title', 'meta_description', 'meta_keywords']);
+
+        // Add name to admin_name
+        $data['admin_name'] = $data['name'];
 
         // Prepare data for creation
         $create_data = Arr::except($data, array_merge(['image'], array_keys($translatableFields)));
