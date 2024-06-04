@@ -57,7 +57,7 @@
                     </x-admin::form.control-group.control>
 
                     <!-- Locales -->
-                    <x-admin::form.control-group.control type="hidden" name="locale" value="{{ app()->getLocale() }}">
+                    <x-admin::form.control-group.control type="hidden" name="locale" value="{{ $currentLocale->code }}">
                     </x-admin::form.control-group.control>
 
                     <!-- Name -->
