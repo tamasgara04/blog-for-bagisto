@@ -40,7 +40,7 @@ class BlogCategoryRepository extends Repository
         $data['admin_name'] = $data['name'];
 
         // Prepare data for creation
-        $create_data = Arr::except($data, array_merge(['image', 'locale'], array_keys($translatableFields)));
+        $create_data = Arr::except($data, array_merge(['image'], array_keys($translatableFields)));
 
         if (array_key_exists('image', $data)) {
             unset($data['image']);

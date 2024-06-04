@@ -15,7 +15,7 @@ class Category extends Model implements CategoryContract
     protected $table = 'blog_categories';
 
     protected $fillable = [
-        'name',
+        'admin_name',
         'slug',
         'image',
         'status',
