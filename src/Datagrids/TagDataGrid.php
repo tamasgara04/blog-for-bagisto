@@ -57,7 +57,7 @@ class TagDataGrid extends DataGrid
             })
             ->select(
                 'blog_tags.id',
-                'blog_tags_translations.name',
+                'blog_tags.admin_name',
                 'blog_tags.slug',
                 'blog_tags_translations.description',
                 'blog_tags.status',

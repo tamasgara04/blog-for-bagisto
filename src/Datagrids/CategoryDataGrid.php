@@ -57,7 +57,7 @@ class CategoryDataGrid extends DataGrid
                 $join->on('blog_categories.id', '=', 'blog_categories_translations.category_id')
                     ->where('blog_categories_translations.locale', '=', $currentLocale);
             })
-            ->select('blog_categories.id', 'blog_categories_translations.name', 'blog_categories.slug', 'blog_categories.status', 'blog_categories_translations.description', 'blog_categories_translations.meta_title', 'blog_categories_translations.meta_description', 'blog_categories_translations.meta_keywords', 'blog_categories.parent_id');
+            ->select('blog_categories.id', 'blog_categories.admin_name', 'blog_categories.slug', 'blog_categories.status', 'blog_categories_translations.description', 'blog_categories_translations.meta_title', 'blog_categories_translations.meta_description', 'blog_categories_translations.meta_keywords', 'blog_categories.parent_id');
 
         return $queryBuilder;
     }
