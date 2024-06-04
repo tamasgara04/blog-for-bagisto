@@ -74,7 +74,7 @@ $currentLocale = core()->getRequestedLocale();
                                                                 <div class="post-categories">
                                                                     <p>
                                                                         @foreach($blog->assign_categorys as $assign_category)
-                                                                        <a href="{{route('shop.blog.category.index',[$assign_category->slug])}}" class="cat-link">{{$assign_category->name}}</a>
+                                                                        <a href="{{route('shop.blog.category.index',[$assign_category->slug])}}" class="cat-link">{{$assign_category->translation($currentLocale->code)->name}}</a>
                                                                         @endforeach
                                                                     </p>
                                                                 </div>

@@ -63,7 +63,7 @@ $currentLocale = core()->getRequestedLocale();
                                                     <div class="blog-post-box">
                                                         <div class="card mb-5">
                                                             <div class="blog-grid-img">
-                                                                <img src="{{ '/storage/' . ( ( isset($blog->src) && !empty($blog->src) && !is_null($blog->src) ) ? $blog->src : 'placeholder-thumb.jpg' ) }}" alt="{{ $blog->name }}" class="card-img-top">
+                                                                <img src="{{ '/storage/' . ( ( isset($blog->src) && !empty($blog->src) && !is_null($blog->src) ) ? $blog->src : 'placeholder-thumb.jpg' ) }}" alt="{{ $blog->translation($currentLocale->code)->name }}" class="card-img-top">
                                                             </div>
                                                             <div class="card-body">
                                                                 <h2 class="card-title">
@@ -84,7 +84,7 @@ $currentLocale = core()->getRequestedLocale();
                                                                 <div class="post-categories">
                                                                     <p>
                                                                         @foreach($blog->assign_categorys as $assign_category)
-                                                                        <a href="{{ route('shop.blog.category.index', [$assign_category->slug]) }}" class="cat-link">{{ $assign_category->name }}</a>
+                                                                        <a href="{{ route('shop.blog.category.index', [$assign_category->slug]) }}" class="cat-link">{{ $assign_category->translation($currentLocale->code)->name }}</a>
                                                                         @endforeach
                                                                     </p>
                                                                 </div>

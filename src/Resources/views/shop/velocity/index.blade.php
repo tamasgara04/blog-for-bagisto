@@ -55,7 +55,7 @@ $currentLocale = core()->getRequestedLocale();
                                                             <div class="card mb-5">
                                                                 <div class="blog-grid-img"><img
                                                                     src="{{ '/storage/' . ( ( isset($blog->src) && !empty($blog->src) && !is_null($blog->src) ) ? $blog->src : 'placeholder-thumb.jpg' ) }}"
-                                                                    alt="{{ $blog->name }}"
+                                                                    alt="{{ $blog->translation($currentLocale->code)->name }}"
                                                                     class="card-img-top">
                                                                 </div>
                                                                 <div class="card-body">

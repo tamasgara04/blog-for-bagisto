@@ -58,7 +58,7 @@ $currentLocale = core()->getRequestedLocale();
                                                         <div class="post-tag-lists">
                                                             @if( !empty($blog_tags) && count($blog_tags) > 0 )
                                                             @foreach( $blog_tags as $blog_tag )
-                                                            <a href="{{route('shop.blog.tag.index',[$blog_tag->slug])}}" class="cat-link">{{$blog_tag->name}}</a>
+                                                            <a href="{{route('shop.blog.tag.index',[$blog_tag->slug])}}" class="cat-link">{{$blog_tag->translation($currentLocale->code)->name}}</a>
                                                             @endforeach
                                                             @endif
                                                         </div>
@@ -131,7 +131,7 @@ $currentLocale = core()->getRequestedLocale();
                                                         <div class="post-categories">
                                                             <p>
                                                                 @foreach($related_blog->assign_categorys as $assign_category)
-                                                                <a href="{{route('shop.blog.category.index',[$assign_category->slug])}}" class="cat-link">{{$assign_category->name}}</a>
+                                                                <a href="{{route('shop.blog.category.index',[$assign_category->slug])}}" class="cat-link">{{$assign_category->translation($currentLocale->code)->name}}</a>
                                                                 @endforeach
                                                             </p>
                                                         </div>

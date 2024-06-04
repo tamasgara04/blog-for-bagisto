@@ -351,7 +351,7 @@
                             </x-admin::form.control-group.control>
 
                             <x-admin::form.control-group.label :for="$tag->translation($currentLocale->code)->name" class="!text-sm !text-gray-600 dark:!text-gray-300 font-semibold cursor-pointer">
-                                {{ $tag->name }}
+                                {{ $tag->translation($currentLocale->code)->name }}
                             </x-admin::form.control-group.label>
                         </x-admin::form.control-group>
                         @endforeach
