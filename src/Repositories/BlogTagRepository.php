@@ -4,7 +4,7 @@ namespace Webbycrown\BlogBagisto\Repositories;
 
 use Webkul\Core\Eloquent\Repository;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Arr;
+use Illuminate\Support\Arr;
 use Webbycrown\BlogBagisto\Models\TagTranslation;
 
 class BlogTagRepository extends Repository
