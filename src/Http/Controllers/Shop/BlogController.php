@@ -47,7 +47,7 @@ class BlogController extends Controller
     public function index()
     {
         $paginate = $this->getConfigByKey('blog_post_per_page');
-        $paginate = ( isset($paginate) && !empty($paginate) && is_null($paginate) ) ? (int)$paginate : 9;
+        $paginate = (isset($paginate) && !empty($paginate) && is_null($paginate)) ? (int)$paginate : 9;
 
         $blogs = Blog::where('status', 1)->orderBy('id', 'desc')->paginate($paginate);
 
@@ -74,14 +74,14 @@ class BlogController extends Controller
     public function authorPage($author_id)
     {
         $show_author_page = $this->getConfigByKey('blog_post_show_author_page');
-        if ( (int)$show_author_page != 1 ) {
+        if ((int)$show_author_page != 1) {
             abort(404);
         }
 
         $author_data = Blog::where('author_id', $author_id)->firstOrFail();
 
         $paginate = $this->getConfigByKey('blog_post_per_page');
-        $paginate = ( isset($paginate) && !empty($paginate) && is_null($paginate) ) ? (int)$paginate : 9;
+        $paginate = (isset($paginate) && !empty($paginate) && is_null($paginate)) ? (int)$paginate : 9;
 
         $blogs = Blog::where('author_id', $author_id)->where('status', 1)->orderBy('id', 'desc')->paginate($paginate);
 
@@ -115,48 +115,54 @@ class BlogController extends Controller
     {
         $blog = Blog::where('slug', $slug)->firstOrFail();
 
-        $blog_id = ( $blog && !empty($blog) && !is_null($blog) ) ? (int)$blog->id : 0;
+        $blog_id = ($blog && !empty($blog) && !is_null($blog)) ? (int)$blog->id : 0;
 
         $blog_tags = Tag::whereIn('id', json_decode($blog->tags, true))->get();
 
         $paginate = $this->getConfigByKey('blog_post_maximum_related');
-        $paginate = ( isset($paginate) && !empty($paginate) && is_null($paginate) ) ? (int)$paginate : 4;
+        $paginate = (isset($paginate) && !empty($paginate) && is_null($paginate)) ? (int)$paginate : 4;
 
-        $blog_category_ids = array_merge( explode(',', $blog->default_category), explode(',', $blog->categorys) );
+        $blog_category_ids = array_merge(explode(',', $blog->default_category), explode(',', $blog->categorys));
 
-        $related_blogs = Blog::orderBy('id', 'desc')->where('status', 1)->whereNotIn('id', [$blog_id]);
-        if ( is_array($blog_category_ids) && !empty($blog_category_ids) && count($blog_category_ids) > 0 ) {
-            $related_blogs = $related_blogs->whereIn('default_category', $blog_category_ids)->where(
-            function ($query) use ($blog_category_ids) {
-                foreach ($blog_category_ids as $key => $blog_category_id) {
-                    if ( $key == 0 ) {
-                        $query->whereRaw('FIND_IN_SET(?, categorys)', [$blog_category_id]);
-                    } else {
-                        $query->orWhereRaw('FIND_IN_SET(?, categorys)', [$blog_category_id]);
+        $related_blogs = Blog::join('blog_categories_translations', 'blogs.default_category', '=', 'blog_categories_translations.category_id')
+            ->where('blog_categories_translations.locale', app()->getLocale())
+            ->orderBy('blogs.id', 'desc')
+            ->where('blogs.status', 1)
+            ->whereNotIn('blogs.id', [$blog_id]);
+
+        if (is_array($blog_category_ids) && !empty($blog_category_ids) && count($blog_category_ids) > 0) {
+            $related_blogs = $related_blogs->whereIn('blogs.default_category', $blog_category_ids)
+                ->where(function ($query) use ($blog_category_ids) {
+                    foreach ($blog_category_ids as $key => $blog_category_id) {
+                        if ($key == 0) {
+                            $query->whereRaw('FIND_IN_SET(?, blogs.categorys)', [$blog_category_id]);
+                        } else {
+                            $query->orWhereRaw('FIND_IN_SET(?, blogs.categorys)', [$blog_category_id]);
+                        }
                     }
-                }
-            });
+                });
         }
+
         $related_blogs = $related_blogs->paginate($paginate);
 
         $categories = Category::where('status', 1)->get();
 
         $tags = $this->getTagsWithCount();
-        
+
         $comments = $this->getCommentsRecursive($blog_id);
 
         $total_comments = Comment::where('post', $blog_id)->where('status', 2)->get();
 
-        $total_comments_cnt = ( !empty( $total_comments ) && count( $total_comments ) > 0 ) ? $total_comments->count() : 0;
+        $total_comments_cnt = (!empty($total_comments) && count($total_comments) > 0) ? $total_comments->count() : 0;
 
         $loggedIn_user_name = $loggedIn_user_email = null;
         $loggedIn_user = auth()->guard('customer')->user();
-        if ( $loggedIn_user && isset($loggedIn_user) && !empty($loggedIn_user) && !is_null($loggedIn_user) ) {
-            $loggedIn_user_email = ( isset($loggedIn_user->email) && !empty($loggedIn_user->email) && !is_null($loggedIn_user->email) ) ? $loggedIn_user->email : null;
-            $loggedIn_user_first_name = ( isset($loggedIn_user->first_name) && !empty($loggedIn_user->first_name) && !is_null($loggedIn_user->first_name) ) ? $loggedIn_user->first_name : null;
-            $loggedIn_user_last_name = ( isset($loggedIn_user->last_name) && !empty($loggedIn_user->last_name) && !is_null($loggedIn_user->last_name) ) ? $loggedIn_user->last_name : null;
+        if ($loggedIn_user && isset($loggedIn_user) && !empty($loggedIn_user) && !is_null($loggedIn_user)) {
+            $loggedIn_user_email = (isset($loggedIn_user->email) && !empty($loggedIn_user->email) && !is_null($loggedIn_user->email)) ? $loggedIn_user->email : null;
+            $loggedIn_user_first_name = (isset($loggedIn_user->first_name) && !empty($loggedIn_user->first_name) && !is_null($loggedIn_user->first_name)) ? $loggedIn_user->first_name : null;
+            $loggedIn_user_last_name = (isset($loggedIn_user->last_name) && !empty($loggedIn_user->last_name) && !is_null($loggedIn_user->last_name)) ? $loggedIn_user->last_name : null;
             $loggedIn_user_name = $loggedIn_user_first_name;
-            $loggedIn_user_name = ( isset($loggedIn_user_name) && !empty($loggedIn_user_name) && !is_null($loggedIn_user_name) ) ? ( $loggedIn_user_name . ' ' . $loggedIn_user_last_name ) : $loggedIn_user_last_name;
+            $loggedIn_user_name = (isset($loggedIn_user_name) && !empty($loggedIn_user_name) && !is_null($loggedIn_user_name)) ? ($loggedIn_user_name . ' ' . $loggedIn_user_last_name) : $loggedIn_user_last_name;
         }
 
         $show_categories_count = $this->getConfigByKey('blog_post_show_categories_with_count');
@@ -178,13 +184,13 @@ class BlogController extends Controller
         $blogTags = Blog::all()->flatMap(function ($blog) {
             return json_decode($blog->tags);
         });
-    
+
         $allBlogTags_arr_el_count = array_count_values($blogTags->toArray());
-    
+
         $tags = Tag::where('status', 1)->get()->each(function ($item) use ($allBlogTags_arr_el_count) {
             $item->count = $allBlogTags_arr_el_count[$item->id] ?? 0;
         });
-    
+
         return $tags;
     }
 
@@ -193,9 +199,9 @@ class BlogController extends Controller
         $comments_datas = array();
 
         $comments_details = Comment::where('post', $blog_id)->where('parent_id', $parent_id)->where('status', 2)->get();
-        if ( !empty($comments_details) && count($comments_details) > 0 ) {
+        if (!empty($comments_details) && count($comments_details) > 0) {
             $comments_datas = $comments_details->toarray();
-            if ( !empty($comments_datas) && count($comments_datas) > 0 ) {
+            if (!empty($comments_datas) && count($comments_datas) > 0) {
                 foreach ($comments_datas as $key => $comments_data) {
                     $comments_datas[$key]['replay'] = $this->getCommentsRecursive($blog_id, $comments_data['id']);
                 }
@@ -208,13 +214,12 @@ class BlogController extends Controller
     public function getConfigByKey($code = '')
     {
         $config_val = null;
-        if ( isset($code) && !empty($code) && !is_null($code) ) {
+        if (isset($code) && !empty($code) && !is_null($code)) {
             $config = CoreConfig::where('code', $code)->first();
-            if ( $config ) {
+            if ($config) {
                 $config_val = $config->value;
             }
         }
         return $config_val;
     }
-    
 }
